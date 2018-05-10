@@ -23,14 +23,13 @@ public class Enemy : MovingObject {
     {
         if (skipMove)
         {
-            skipMove = false;
+            //skipMove = false;
             return MOVE_ATTEMPT_NO_HIT;
         }
         else
         {
-            base.AttemptMove<T>(xDir, yDir);
-            skipMove = true;
-            return MOVE_ATTEMPT_NO_HIT;
+            //skipMove = true;
+            return base.AttemptMove<T>(xDir, yDir);
         }
     }
 
@@ -48,8 +47,7 @@ public class Enemy : MovingObject {
         {
             xDir = target.position.x > transform.position.x ? 1 : -1;
         }
-
-        AttemptMove<Player>(xDir, yDir);
+        
         int hitCode = AttemptMove<Player>(xDir, yDir);
 
         if (hitCode == MOVE_ATTEMPT_HIT)
@@ -59,7 +57,9 @@ public class Enemy : MovingObject {
         }
 
         else if (hitCode == MOVE_ATTEMPT_NO_HIT)
+        {
             AttemptMove<Wall>(xDir, yDir);
+        }
         skipMove = true;
     }
 
