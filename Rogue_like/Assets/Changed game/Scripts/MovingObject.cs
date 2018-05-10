@@ -6,7 +6,8 @@ public abstract class MovingObject : MonoBehaviour {
 
     public float moveTime = 0.1f;
     public LayerMask blockingLayer;
-
+    public const int MOVE_ATTEMPT_NO_HIT = 0;
+    public const int MOVE_ATTEMPT_HIT = 1;
 
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
@@ -50,20 +51,24 @@ public abstract class MovingObject : MonoBehaviour {
         }
     }
 
-    protected virtual void AttemptMove <T> (int xDir, int yDir)
+    protected virtual int AttemptMove <T> (int xDir, int yDir)
         where T : Component
     {
         RaycastHit2D hit;
-        bool canMove = Move(xDir,yDir, out hit);
-        if(hit.transform == null)
-        {
-            return;
-        }
+        bool canMove = Move(xDir, yDir, out hit);
+
+        if (hit.transform == null)
+            return MOVE_ATTEMPT_NO_HIT;
+
         T hitComponent = hit.transform.GetComponent<T>();
-        if(!canMove && hitComponent != null)
+
+        if (!canMove && hitComponent != null)
         {
             OnCantMove(hitComponent);
+            return MOVE_ATTEMPT_HIT;
         }
+
+        return MOVE_ATTEMPT_NO_HIT;
     }
 
     protected abstract void OnCantMove<T>(T component)

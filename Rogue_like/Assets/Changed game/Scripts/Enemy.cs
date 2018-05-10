@@ -19,15 +19,19 @@ public class Enemy : MovingObject {
         base.Start();
 	}
 
-    protected override void AttemptMove<T>(int xDir, int yDir)
+    protected override int AttemptMove<T>(int xDir, int yDir)
     {
-        if(skipMove)
+        if (skipMove)
         {
             skipMove = false;
-            return;
+            return MOVE_ATTEMPT_NO_HIT;
         }
-        base.AttemptMove<T>(xDir, yDir);
-        skipMove = true;
+        else
+        {
+            base.AttemptMove<T>(xDir, yDir);
+            skipMove = true;
+            return MOVE_ATTEMPT_NO_HIT;
+        }
     }
 
     //pathfinding
@@ -45,15 +49,35 @@ public class Enemy : MovingObject {
             xDir = target.position.x > transform.position.x ? 1 : -1;
         }
 
-        AttemptMove<Player>(xDir,yDir);
+        AttemptMove<Player>(xDir, yDir);
+        int hitCode = AttemptMove<Player>(xDir, yDir);
+
+        if (hitCode == MOVE_ATTEMPT_HIT)
+        {
+            skipMove = true;
+            return;
+        }
+
+        else if (hitCode == MOVE_ATTEMPT_NO_HIT)
+            AttemptMove<Wall>(xDir, yDir);
+        skipMove = true;
     }
 
     protected override void OnCantMove<T>(T component)
     {  
-        Player hitPlayer = component as Player;
-        hitPlayer.LoseFood(playerDamage);
+        if(component.gameObject.name == "Player")
+        {
+            Player hitPlayer = component as Player;
+            hitPlayer.LoseFood(playerDamage);
+            SoundManager.instance.RandomizeSFX(enemyAttack1, enemyAttack2);
+        }
+        else
+        {
+            Wall hitWall = component as Wall;
+            hitWall.DamageWall(playerDamage / 10);
+            SoundManager.instance.RandomizeSFX(enemyAttack1);
+        }
 
         animator.SetTrigger("enemyAttack");
-        SoundManager.instance.RandomizeSFX(enemyAttack1,enemyAttack2);
     }
 }

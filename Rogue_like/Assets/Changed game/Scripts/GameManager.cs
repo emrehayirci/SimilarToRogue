@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-    public float levelStartDelay = 2f;
+    public float levelStartDelay = 0f;
     public static GameManager instance = null;
     public float turnDelay = .1f;
     public BoardManager boardScript;
@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour {
     public int playerFoodPoints = 100;
     [HideInInspector] public bool playerTurn = true;
 
-    private Text levelText;
-    private GameObject levelImage;
+    public Text levelText;
+    public GameObject levelImage;
     private int level = 1;
     private List<Enemy> enemies;
     private bool enemiesMoving;
@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour {
         }
 
         DontDestroyOnLoad(gameObject);
+
+        
+
         enemies = new List<Enemy>();
         boardScript = GetComponent<BoardManager>();
         InitGame();
@@ -44,12 +47,24 @@ public class GameManager : MonoBehaviour {
 
         levelImage = GameObject.Find("Level Image");
         levelText = GameObject.Find("LevelText").GetComponent<Text>();
-        levelText.text = "Day " + level;
-        levelImage.SetActive(true);
+
+        ShowLevelImageAfterLoad();
         Invoke("HideLevelImage",levelStartDelay);
 
         enemies.Clear();
         boardScript.SetupScene(level);
+    }
+
+    public void ShowLevelImageAfterLoad()
+    {
+        levelText.text = "Day " + level;
+        levelImage.SetActive(true);
+    }
+
+    public void ShowLevelImageBeforeLoad(Text newlevelText, GameObject newLevelImage)
+    {
+        newlevelText.text = "Day " + (level + 1);
+        newLevelImage.SetActive(true);
     }
 
     private void HideLevelImage()

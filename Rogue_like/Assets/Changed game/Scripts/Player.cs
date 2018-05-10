@@ -9,7 +9,7 @@ public class Player : MovingObject {
     public int wallDamage = 1;
     public int pointsPerFood = 10;
     public int pointsPerSoda = 20;
-    public float restartLevelDelay = 1f;
+    public float restartLevelDelay = 0f;
     public Text foodText;
 
     public AudioClip moveSound1;
@@ -64,7 +64,7 @@ public class Player : MovingObject {
         }
     }
 
-    protected override void AttemptMove<T>(int xDir, int yDir)
+    protected override int AttemptMove<T>(int xDir, int yDir)
     {
         food--;
         foodText.text = "Food: " + food;
@@ -80,6 +80,7 @@ public class Player : MovingObject {
         CheckIfGameOver();
 
         GameManager.instance.playerTurn = false;
+        return MOVE_ATTEMPT_NO_HIT;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -115,6 +116,8 @@ public class Player : MovingObject {
 
     private void Restart()
     {
+        //turn on level image and increase the level in here before loading the next level
+        GameManager.instance.ShowLevelImageBeforeLoad(GameManager.instance.levelText, GameManager.instance.levelImage);
         SceneManager.LoadScene(0);
     }
 
