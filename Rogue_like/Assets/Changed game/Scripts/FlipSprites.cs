@@ -12,14 +12,14 @@ public class FlipSprites : MonoBehaviour {
     {
         instance = this;
 
-        mySpriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     // Use this for initialization
     void Start ()
     {
-		
-	}
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -32,13 +32,13 @@ public class FlipSprites : MonoBehaviour {
         if (mySpriteRenderer != null)
         {
             //Debug.Log("Flipping the sprite"); 
-            if (Input.GetKeyDown((KeyCode.LeftArrow)))
+            if (Input.GetAxisRaw("Horizontal") < 0)
             {
                 // flip the sprite
                 mySpriteRenderer.flipX = true;
             }
 
-            if (Input.GetKeyDown((KeyCode.RightArrow)))
+            if (Input.GetAxisRaw("Horizontal") > 0)
             {
                 mySpriteRenderer.flipX = false;
             }
