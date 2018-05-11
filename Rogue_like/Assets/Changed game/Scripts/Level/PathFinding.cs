@@ -106,7 +106,7 @@ namespace Assets.Changed_game.Scripts.Level
                 var current = end;
                 while (current != start)
                 {
-                    Debug.Log(current);
+                    //Debug.Log(current);
                     //Debug.Log(costSoFar[current]);
                     moves.Push(current);
                     current = cameFrom[current];
