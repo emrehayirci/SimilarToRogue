@@ -73,15 +73,8 @@ namespace Assets.Changed_game.Scripts.Level
                 foreach (var next in neighbours)
                 {
                     double newCost = costSoFar[current];
-                    if (tiles[(int)next.x, (int)next.y] == TileType.Wall)
-                    {
-                        Debug.Log("Before " + newCost);
-                    }
+                    
                     newCost = costSoFar[current] + ((tiles[(int)next.x, (int)next.y] == TileType.Wall) ? 3 : 1);
-                    if(tiles[(int)next.x, (int)next.y] == TileType.Wall)
-                    {
-                        Debug.Log("After " + newCost);
-                    }
 
                     if (!costSoFar.ContainsKey(next)
                         || newCost < costSoFar[next])
@@ -93,8 +86,8 @@ namespace Assets.Changed_game.Scripts.Level
                     }
                 }
             }
-            Debug.Log(costSoFar);
-            Debug.Log(cameFrom);
+            //Debug.Log(costSoFar);
+            //Debug.Log(cameFrom);
             return BackTrace(start, end);
         }        
 

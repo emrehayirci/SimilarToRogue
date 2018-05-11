@@ -31,7 +31,7 @@ public class FlipSprites : MonoBehaviour {
     {
         if (mySpriteRenderer != null)
         {
-            Debug.Log("Flipping the sprite"); 
+            //Debug.Log("Flipping the sprite"); 
             if (Input.GetKeyDown((KeyCode.LeftArrow)))
             {
                 // flip the sprite
