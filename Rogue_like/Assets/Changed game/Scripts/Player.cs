@@ -23,8 +23,15 @@ public class Player : MovingObject {
     private Animator animator;
     private int food;
 
-	// Use this for initialization
-	protected override void Start () {
+    private SpriteRenderer mySpriteRenderer;
+
+    private void Awake()
+    {
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    // Use this for initialization
+    protected override void Start () {
         animator = GetComponent<Animator>();
 
         food = GameManager.instance.playerFoodPoints;
@@ -40,8 +47,9 @@ public class Player : MovingObject {
     }
 
     // Update is called once per frame
-    void Update () {
-		if(!GameManager.instance.playerTurn)
+    void Update()
+    {
+        if (!GameManager.instance.playerTurn)
         {
             return;
         }
@@ -52,16 +60,31 @@ public class Player : MovingObject {
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
 
+        if (horizontal != 0 || vertical != 0)
+        {
+            AttemptMove<Wall>(horizontal, vertical);
+        }
+
         //prevents diagonal movement
-        if(horizontal != 0)
+        if (horizontal != 0)
         {
             vertical = 0;
         }
 
-        if(horizontal !=0 || vertical != 0)
+        if (mySpriteRenderer != null)
         {
-            AttemptMove<Wall>(horizontal,vertical);
+            if (Input.GetKeyDown((KeyCode.LeftArrow)))
+            {
+                // flip the sprite
+                mySpriteRenderer.flipX = true;
+            }
+            
+            if (Input.GetKeyDown((KeyCode.RightArrow)))
+            {
+                mySpriteRenderer.flipX = false; 
+            }
         }
+        
     }
 
     protected override int AttemptMove<T>(int xDir, int yDir)
