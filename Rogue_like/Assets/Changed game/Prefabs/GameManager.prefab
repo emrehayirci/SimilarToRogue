@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4732354398025288}
   - component: {fileID: 114974250470571740}
   - component: {fileID: 114567952349718650}
+  - component: {fileID: 114530793846065556}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -41,6 +42,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114530793846065556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1624839899378860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4cffc5ecde71d142bef76fc295fca1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 8
+  rows: 8
+  wallCount:
+    minimum: 5
+    maximum: 9
+  foodCount:
+    minimum: 1
+    maximum: 5
+  exit: {fileID: 1606924550400874, guid: edc9debca9d792d4cabb1a8f5a9c5bfc, type: 2}
+  floorTiles:
+  - {fileID: 106160, guid: 038998774947c4a8fa170d5b4492a7dd, type: 2}
+  - {fileID: 1430621641867832, guid: 99929d4e08471074c91550d5e8a5d18d, type: 2}
+  - {fileID: 1021167868461682, guid: c72d98f3e93c37941938b3614b869dcf, type: 2}
+  - {fileID: 1885260327610818, guid: 9cbdc82390ba73f4fa9c80899c6ef7fa, type: 2}
+  - {fileID: 1520418835839388, guid: 51f2e9d4b4647b346a6685a643ee31d9, type: 2}
+  - {fileID: 1755189763775044, guid: f6189e522ed7b7445b77b4dbb70ad320, type: 2}
+  - {fileID: 1349878643966154, guid: 87b4fd6ce30a39948a553fbd68fa4e63, type: 2}
+  - {fileID: 1141735478678334, guid: 0b35c2ec38d3c0746a657b48fa21d329, type: 2}
+  wallTiles:
+  - {fileID: 110520, guid: 2570048905bd94d6f8a99d13b80daf90, type: 2}
+  foodTiles:
+  - {fileID: 1776506070511544, guid: c3b13b2e90ebfd34e8508de2da7535f8, type: 2}
+  enemyTiles:
+  - {fileID: 1720329895996382, guid: 13b22dced7d8511469ea20c4261f1ded, type: 2}
+  outerWallTiles:
+  - {fileID: 1482738704131128, guid: 8172fd0c690757d4ea50939db36a3259, type: 2}
 --- !u!114 &114567952349718650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519344ad2bb86d14e98107aa03fe877a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelStartDelay: 2
   turnDelay: 0.1
   boardScript: {fileID: 0}
   playerFoodPoints: 100

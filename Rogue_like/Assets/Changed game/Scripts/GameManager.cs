@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Changed_game.Scripts.Level;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public float levelStartDelay = 2f;
     public static GameManager instance = null;
     public float turnDelay = .1f;
-    public BoardManager boardScript;
+    public NewBoardManager boardScript;
 
     public int playerFoodPoints = 100;
     [HideInInspector] public bool playerTurn = true;
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject);
         enemies = new List<Enemy>();
-        boardScript = GetComponent<BoardManager>();
+        boardScript = GetComponent<NewBoardManager>();
         InitGame();
 	}
 
