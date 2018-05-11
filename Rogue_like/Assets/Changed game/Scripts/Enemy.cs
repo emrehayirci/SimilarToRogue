@@ -12,9 +12,14 @@ public class Enemy : MovingObject {
     private Animator animator;
     private Transform target;
     private bool skipMove;
-    
+    private bool lastDirectionRight;
+    private SpriteRenderer spriteRenderer; 
+
+
 	protected override void Start () {
+
         GameManager.instance.AddEnemyToList(this);
+        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         base.Start();
@@ -37,6 +42,9 @@ public class Enemy : MovingObject {
 
                 int xDir = (int)(nextMove.x - transform.position.x);
                 int yDir = (int)(nextMove.y - transform.position.y);
+
+                lastDirectionRight = (xDir > 0 ? true : false);
+                spriteRenderer.flipX = lastDirectionRight;
 
                 //Tries to move to location, Moves if it can move
                 if (!Move(xDir, yDir, out hit)){
