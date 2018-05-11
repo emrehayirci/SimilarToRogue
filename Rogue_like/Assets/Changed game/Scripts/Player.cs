@@ -60,6 +60,11 @@ public class Player : MovingObject {
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
 
+        if (horizontal != 0 || vertical != 0)
+        {
+            AttemptMove<Wall>(horizontal, vertical);
+        }
+
         //prevents diagonal movement
         if (horizontal != 0)
         {
