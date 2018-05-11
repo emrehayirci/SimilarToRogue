@@ -990,7 +990,7 @@
     </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElement.AsArray">
       <summary>
-        <para>Convenience function to convert to array element.</para>
+        <para>Convenience method to convert to array element.</para>
       </summary>
       <returns>
         <para>The element as PlistElementArray.</para>
@@ -998,23 +998,15 @@
     </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElement.AsBoolean">
       <summary>
-        <para>Convenience function to convert to bool.</para>
+        <para>Convenience method to convert to bool.</para>
       </summary>
       <returns>
         <para>The value of the boolean element.</para>
       </returns>
     </member>
-    <member name="M:UnityEditor.iOS.Xcode.PlistElement.AsDate">
-      <summary>
-        <para>Convenience function to convert to date.</para>
-      </summary>
-      <returns>
-        <para>The value of the date element.</para>
-      </returns>
-    </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElement.AsDict">
       <summary>
-        <para>Convenience function to convert to dictionary element.</para>
+        <para>Convenience method to convert to dictionary element.</para>
       </summary>
       <returns>
         <para>The element as PlistElementDict.</para>
@@ -1022,23 +1014,15 @@
     </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElement.AsInteger">
       <summary>
-        <para>Convenience function to convert to integer.</para>
+        <para>Convenience method to convert to integer.</para>
       </summary>
       <returns>
         <para>The value of the integer element.</para>
       </returns>
     </member>
-    <member name="M:UnityEditor.iOS.Xcode.PlistElement.AsReal">
-      <summary>
-        <para>Convenience function to convert to float.</para>
-      </summary>
-      <returns>
-        <para>The value of the real element.</para>
-      </returns>
-    </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElement.AsString">
       <summary>
-        <para>Convenience function to convert to string.</para>
+        <para>Convenience method to convert to string.</para>
       </summary>
       <returns>
         <para>The value of the string element.</para>
@@ -1061,7 +1045,7 @@
     </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElementArray.AddArray">
       <summary>
-        <para>Convenience function to append a new array to values list.</para>
+        <para>Convenience method to append new array to values.</para>
       </summary>
       <returns>
         <para>The new array element.</para>
@@ -1069,19 +1053,13 @@
     </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElementArray.AddBoolean(System.Boolean)">
       <summary>
-        <para>Convenience function to append a new boolean element to values list.</para>
+        <para>Convenience method to append new boolean element to values.</para>
       </summary>
       <param name="val">The value of the new boolean element.</param>
     </member>
-    <member name="M:UnityEditor.iOS.Xcode.PlistElementArray.AddDate(System.DateTime)">
-      <summary>
-        <para>Convenience function to append a new date element to values list.</para>
-      </summary>
-      <param name="val">The value of the new date element.</param>
-    </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElementArray.AddDict">
       <summary>
-        <para>Convenience function to append a new dictionary to values list.</para>
+        <para>Convenience method to append new dictionary to values.</para>
       </summary>
       <returns>
         <para>The new dictionary element.</para>
@@ -1089,19 +1067,13 @@
     </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElementArray.AddInteger(System.Int32)">
       <summary>
-        <para>Convenience function to append a new integer element to values list.</para>
+        <para>Convenience method to append new integer element to values.</para>
       </summary>
       <param name="val">The value of the new integer element.</param>
     </member>
-    <member name="M:UnityEditor.iOS.Xcode.PlistElementArray.AddReal(System.Single)">
-      <summary>
-        <para>Convenience function to append a new real element to values list.</para>
-      </summary>
-      <param name="val">The value of the new real element.</param>
-    </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElementArray.AddString(System.String)">
       <summary>
-        <para>Convenience function to append a new string element to values list.</para>
+        <para>Convenience method to append new string element to values.</para>
       </summary>
       <param name="val">The value of the new string element.</param>
     </member>
@@ -1125,22 +1097,6 @@
         <para>Creates new boolean element.</para>
       </summary>
       <param name="v">The value of the element.</param>
-    </member>
-    <member name="T:UnityEditor.iOS.Xcode.PlistElementDate">
-      <summary>
-        <para>Represents a date element in plist document.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEditor.iOS.Xcode.PlistElementDate.value">
-      <summary>
-        <para>The value stored in the date element.</para>
-      </summary>
-    </member>
-    <member name="M:UnityEditor.iOS.Xcode.PlistElementDate.#ctor(System.DateTime)">
-      <summary>
-        <para>Creates new date element.</para>
-      </summary>
-      <param name="date">The value of the element.</param>
     </member>
     <member name="T:UnityEditor.iOS.Xcode.PlistElementDict">
       <summary>
@@ -1182,23 +1138,9 @@
       <param name="key">The key of the property.</param>
       <param name="val">The value of the property.</param>
     </member>
-    <member name="M:UnityEditor.iOS.Xcode.PlistElementDict.SetDate(System.String,System.DateTime)">
-      <summary>
-        <para>Convenience method to set a date property.</para>
-      </summary>
-      <param name="key">The key of the property.</param>
-      <param name="val">The value of the property.</param>
-    </member>
     <member name="M:UnityEditor.iOS.Xcode.PlistElementDict.SetInteger(System.String,System.Int32)">
       <summary>
         <para>Convenience method to set an integer property.</para>
-      </summary>
-      <param name="key">The key of the property.</param>
-      <param name="val">The value of the property.</param>
-    </member>
-    <member name="M:UnityEditor.iOS.Xcode.PlistElementDict.SetReal(System.String,System.Single)">
-      <summary>
-        <para>Convenience method to set an real property.</para>
       </summary>
       <param name="key">The key of the property.</param>
       <param name="val">The value of the property.</param>
@@ -1228,22 +1170,6 @@
     <member name="M:UnityEditor.iOS.Xcode.PlistElementInteger.#ctor(System.Int32)">
       <summary>
         <para>Creates new integer element.</para>
-      </summary>
-      <param name="v">The value of the element.</param>
-    </member>
-    <member name="T:UnityEditor.iOS.Xcode.PlistElementReal">
-      <summary>
-        <para>Represents a real element in plist document.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEditor.iOS.Xcode.PlistElementReal.value">
-      <summary>
-        <para>The value stored in the real element.</para>
-      </summary>
-    </member>
-    <member name="M:UnityEditor.iOS.Xcode.PlistElementReal.#ctor(System.Single)">
-      <summary>
-        <para>Creates new real element.</para>
       </summary>
       <param name="v">The value of the element.</param>
     </member>

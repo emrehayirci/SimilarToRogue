@@ -101,15 +101,17 @@ namespace Assets.Changed_game.Scripts.Level
 
         public void SetupScene(int level)
         {
-            BoardSetup();
-            InitializeList();
-            LayoutObectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
-            LayoutObectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
-            int enemyCount = (int)Mathf.Log(level, 2f);
-            LayoutObectAtRandom(enemyTiles, enemyCount, enemyCount, TileType.Enemy);
-            Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
-            Debug.Log(BoardTiles);
-            PathFinding.Calculate(BoardTiles,new Vector2(0,0), new Vector2(7, 7));
+            do
+            {
+                BoardSetup();
+                InitializeList();
+                LayoutObectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
+                LayoutObectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+                int enemyCount = (int)Mathf.Log(level, 2f);
+                LayoutObectAtRandom(enemyTiles, enemyCount, enemyCount, TileType.Enemy);
+                Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
+            }
+            while (PathFinding.Calculate(new Vector2(0,0), new Vector2(7, 7)).Count == 0); //Pathfinding returns no moves
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Changed_game.Scripts.Level;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,48 +20,49 @@ public class Enemy : MovingObject {
         base.Start();
 	}
 
-    protected override int AttemptMove<T>(int xDir, int yDir)
-    {
-        if (skipMove)
-        {
-            //skipMove = false;
-            return MOVE_ATTEMPT_NO_HIT;
-        }
-        else
-        {
-            //skipMove = true;
-            return base.AttemptMove<T>(xDir, yDir);
-        }
-    }
-
     //pathfinding
     public void MoveEnemy()
     {
-        int xDir = 0;
-        int yDir = 0;
-
-        if(Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
+        if (!skipMove)
         {
-            yDir = target.position.y > transform.position.y ? 1 : -1;
+            Stack<Vector2> moveStack = PathFinding.Calculate(transform.position, target.position);
+
+            if (moveStack.Count != 0)
+            {
+                RaycastHit2D hit;
+                Vector2 nextMove = moveStack.Pop();
+
+                Debug.Log("Next");
+                Debug.Log(nextMove);
+
+                int xDir = (int)(nextMove.x - transform.position.x);
+                int yDir = (int)(nextMove.y - transform.position.y);
+
+                //Tries to move to location, Moves if it can move
+                if (!Move(xDir, yDir, out hit)){
+                    //if colides with something determine if its wall or player
+                    Component hitComponent = hit.transform.GetComponent<Wall>();
+                    if(hitComponent == null)
+                    {
+                        hitComponent = hit.transform.GetComponent<Player>();
+                    }
+
+                    //If determined as wall or Player
+                    if (hitComponent != null)
+                    {
+                        OnCantMove(hitComponent);
+                    }
+                }
+                
+                //for next turn
+                skipMove = true;
+            }
         }
         else
         {
-            xDir = target.position.x > transform.position.x ? 1 : -1;
+            skipMove = false;
         }
         
-        int hitCode = AttemptMove<Player>(xDir, yDir);
-
-        if (hitCode == MOVE_ATTEMPT_HIT)
-        {
-            skipMove = true;
-            return;
-        }
-
-        else if (hitCode == MOVE_ATTEMPT_NO_HIT)
-        {
-            AttemptMove<Wall>(xDir, yDir);
-        }
-        skipMove = true;
     }
 
     protected override void OnCantMove<T>(T component)

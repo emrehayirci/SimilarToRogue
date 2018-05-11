@@ -10,9 +10,6 @@ namespace Assets.Changed_game.Scripts.Level
 {
     class PathFinding
     {
-        public enum Moves { Up, Down, Right, Left }
-        public static List<Moves> MoveQueue;
-
         public static Dictionary<Vector2, Vector2> cameFrom;
         public static Dictionary<Vector2, double> costSoFar;
 
@@ -26,14 +23,6 @@ namespace Assets.Changed_game.Scripts.Level
             return Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y);
         }
 
-
-
-        public static void getNeighbours(Vector2 location){
-            //add up down right left in list and return
-            //(int)location.x;
-        }
-
-
         /* 
             Implements A* path finding algorithm (Proved to be best solution of that kind of problems)
             PARAMS: 
@@ -41,8 +30,11 @@ namespace Assets.Changed_game.Scripts.Level
                 startx and starty coordinates for starting position on the map
                 endx and endy coordinates for ending position
         */
-        public static bool Calculate(TileType [,] tiles, Vector2 start, Vector2 end)
+        public static Stack<Vector2> Calculate(Vector2 start, Vector2 end)
         {
+            //Get tiles from BoardManager
+            TileType[,] tiles = GameManager.instance.boardScript.BoardTiles;
+
             cameFrom = new Dictionary<Vector2, Vector2>();
             costSoFar = new Dictionary<Vector2, double>();
             var frontier = new FastPriorityQueue<Location>(100);
@@ -66,7 +58,7 @@ namespace Assets.Changed_game.Scripts.Level
                     neighbours.Add(new Vector2(current.x + 1, current.y));
                 }
 
-                if(current.y < tiles.GetLength(0) - 1 ){ //sec dimension
+                if(current.y < tiles.GetLength(1) - 1 ){ //sec dimension
                     neighbours.Add(new Vector2(current.x, current.y + 1));
                 }
 
@@ -74,7 +66,7 @@ namespace Assets.Changed_game.Scripts.Level
                     neighbours.Add(new Vector2(current.x - 1, current.y));
                 }
 
-                if(current.y < 0 ){
+                if(current.y > 0 ){
                     neighbours.Add(new Vector2(current.x, current.y - 1));
                 }
 
@@ -103,20 +95,20 @@ namespace Assets.Changed_game.Scripts.Level
             }
             Debug.Log(costSoFar);
             Debug.Log(cameFrom);
-            BackTrace(start, end);
-            return false;
+            return BackTrace(start, end);
         }        
 
-        private static void BackTrace(Vector2 start, Vector2 end)
+        private static Stack<Vector2> BackTrace(Vector2 start, Vector2 end)
         {
-            
+            Stack<Vector2> moves = new Stack<Vector2>();
             if (cameFrom.ContainsKey(end))
             {
                 var current = end;
                 while (current != start)
                 {
                     Debug.Log(current);
-                    Debug.Log(costSoFar[current]);
+                    //Debug.Log(costSoFar[current]);
+                    moves.Push(current);
                     current = cameFrom[current];
                 }
             }
@@ -124,7 +116,7 @@ namespace Assets.Changed_game.Scripts.Level
             {
                 Debug.Log("No way Bro!");
             }
-           
+            return moves;
            
         }
 
