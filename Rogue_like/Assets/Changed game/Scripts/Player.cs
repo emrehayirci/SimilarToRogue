@@ -23,13 +23,6 @@ public class Player : MovingObject {
     private Animator animator;
     private int food;
 
-    private SpriteRenderer mySpriteRenderer;
-
-    private void Awake()
-    {
-        mySpriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
     // Use this for initialization
     protected override void Start () {
         animator = GetComponent<Animator>();
@@ -57,13 +50,17 @@ public class Player : MovingObject {
         int horizontal = 0;
         int vertical = 0;
 
+        ///Debug.Log(horizontal, vertical); 
+
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
+
 
         if (horizontal != 0 || vertical != 0)
         {
             AttemptMove<Wall>(horizontal, vertical);
         }
+        Debug.Log(horizontal + " " + vertical);
 
         //prevents diagonal movement
         if (horizontal != 0)
@@ -71,19 +68,9 @@ public class Player : MovingObject {
             vertical = 0;
         }
 
-        if (mySpriteRenderer != null)
-        {
-            if (Input.GetKeyDown((KeyCode.LeftArrow)))
-            {
-                // flip the sprite
-                mySpriteRenderer.flipX = true;
-            }
-            
-            if (Input.GetKeyDown((KeyCode.RightArrow)))
-            {
-                mySpriteRenderer.flipX = false; 
-            }
-        }
+        Debug.Log(transform.position);
+
+        FlipSprites.instance.FlipTheSprite(); 
         
     }
 
