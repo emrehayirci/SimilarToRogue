@@ -27,6 +27,15 @@ public class SoundManager : MonoBehaviour {
         PlaySong(music,roomName);
 	}
 
+    private void Update()
+    {
+
+        if (!musicSource.isPlaying)
+        {
+            PlaySong(music, roomName);
+        }
+    }
+
     public void PlaySingle(AudioClip clip)
     {
         efxSource.clip = clip;
@@ -43,20 +52,19 @@ public class SoundManager : MonoBehaviour {
         if (NewroomName == "NotSpecial")
         {
             musicSource.clip = music[randomSong];
+            musicSource.loop = false;
         }
         else if(NewroomName == "Shop")
         {
             musicSource.clip = music[shopTheme];
+            musicSource.loop = true;
         }
         else
         {
             musicSource.clip = music[bossTheme];
+            musicSource.loop = true;
         }
         musicSource.Play();
-        if(!musicSource.isPlaying)
-        {
-            PlaySong(Newmusic, roomName);
-        }
     }
 
     public void RandomizeSFX(params AudioClip [] clips)
