@@ -33,18 +33,18 @@ public class SoundManager : MonoBehaviour {
         efxSource.Play();
     }
 
-    public void PlaySong(AudioClip [] music, string roomName)
+    public void PlaySong(AudioClip [] Newmusic, string NewroomName)
     {
         //let it choose a random song of the level songs, all other songs are for specific uses.
-        int randomSong = Random.Range(0, music.Length - 2);
-        int shopTheme = music.Length - 1;
-        int bossTheme = music.Length;
+        int randomSong = Random.Range(0, Newmusic.Length - 3);
+        int shopTheme = Newmusic.Length - 2;
+        int bossTheme = Newmusic.Length - 1;
 
-        if (roomName == "NotSpecial")
+        if (NewroomName == "NotSpecial")
         {
             musicSource.clip = music[randomSong];
         }
-        else if(roomName == "Shop")
+        else if(NewroomName == "Shop")
         {
             musicSource.clip = music[shopTheme];
         }
@@ -55,7 +55,7 @@ public class SoundManager : MonoBehaviour {
         musicSource.Play();
         if(!musicSource.isPlaying)
         {
-            PlaySong(music, roomName);
+            PlaySong(Newmusic, roomName);
         }
     }
 
