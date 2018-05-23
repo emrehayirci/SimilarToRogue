@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Changed_game.Scripts.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,12 @@ namespace Assets.Changed_game.Scripts.Level
         public GameObject[] foodTiles;
         public GameObject[] enemyTiles;
         public GameObject[] outerWallTiles;
+        public GameObject[] randomCollectable;
+
         public TileType[,] BoardTiles;
+
+        //PickUp Items Container for ground items
+        public List<PickupItem> pickupItems = new List<PickupItem>();
 
         private Transform boardHolder;
         private List<Vector3> gridPositions = new List<Vector3>();
@@ -112,6 +118,60 @@ namespace Assets.Changed_game.Scripts.Level
                 Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
             }
             while (PathFinding.Calculate(new Vector2(0,0), new Vector2(7, 7)).Count == 0); //Pathfinding returns no moves
+                
+            //Adding collactables
+
+
+        }
+
+        public void AddPickupItem(PickupItem item, Vector2 location)
+        {
+            Vector2 newLocation;
+
+            if(GetEmptyLocationNear(location, out newLocation))
+            {
+                item.location = newLocation;
+                pickupItems.Add(item);
+            }
+            else
+            {
+                //if there is no suitable place
+                return; // basicly equals to deleting the object
+            }
+
+            return;
+        }
+
+        //Basic Level, needs to improve
+        public bool GetEmptyLocationNear(Vector2 start, out Vector2 location)
+        {
+            
+
+            int x = (int)start.x;
+            int y = (int)start.y;
+            if (x < BoardTiles.GetLength(0) - 1 && BoardTiles[x + 1,y] == TileType.Empty)
+            {
+                location = new Vector2(x + 1, y);
+                return true;
+            }
+            else if (y < BoardTiles.GetLength(1) - 1 && BoardTiles[x, y + 1] == TileType.Empty)
+            {
+                location = new Vector2(x, y + 1);
+                return true;
+            }
+            else if (x > 0  && BoardTiles[x - 1, y] == TileType.Empty)
+            {
+                location = new Vector2(x - 1, y);
+                return true;
+            }
+            else if (y > 0 && BoardTiles[x, y - 1] == TileType.Empty)
+            {
+                location = new Vector2(x, y - 1);
+                return true;
+            }
+
+            location = start;
+            return false;
         }
     }
 }
