@@ -7,16 +7,14 @@ public class Inventory : MonoBehaviour {
 
 
     public List<PickupItem> items;
+    public int itemCount = 0;
+    public GameObject hud;
 
 	// Use this for initialization
 	void Start () {
-		
+        items = new List<PickupItem>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 
     /*
@@ -30,9 +28,11 @@ public class Inventory : MonoBehaviour {
             if(item.type == groundItem.type)
             {
                 DropItem(item);
+                break;
             }
         }
         items.Add(groundItem);
+        itemCount++;
         //show it in screen
         DisplayItems();
     }
@@ -41,16 +41,13 @@ public class Inventory : MonoBehaviour {
     {
         //Level Manager add item to ground
         GameManager.instance.boardScript.AddPickupItem(itemToDrop, transform.position);
-
+        itemCount--;
         return items.Remove(itemToDrop);    
     }
 
     void DisplayItems()
     {
-        foreach (PickupItem item in items)
-        {
-
-        }
+        InventoryHudScript.instance.UpdateItems(items);
     }
 
 }

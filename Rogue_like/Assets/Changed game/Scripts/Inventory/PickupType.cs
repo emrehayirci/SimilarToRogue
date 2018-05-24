@@ -9,10 +9,6 @@ namespace Assets.Changed_game.Scripts.Inventory
     {
         Weapon,
         Armor,
-        Spell,
-        Something,
-        Special,
-        Key,
-        Wowowow
+        Spell
     }
 }

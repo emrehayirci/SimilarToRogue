@@ -128,6 +128,14 @@ public class Player : MovingObject {
             SoundManager.instance.RandomizeSFX(drinkSound1, drinkSound2);
             other.gameObject.SetActive(false);
         }
+        else if (other.tag == "PickUp")
+        {
+            this.GetComponent<Inventory>().AddItem(other.GetComponent<PickUpBehavior>().objectDetails);
+            // remove object from map
+
+            other.gameObject.SetActive(false);
+
+        }
     }
 
     protected override void OnCantMove<T>(T component)

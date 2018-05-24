@@ -36,6 +36,8 @@ namespace Assets.Changed_game.Scripts.Level
 
         public TileType[,] BoardTiles;
 
+
+
         //PickUp Items Container for ground items
         public List<PickupItem> pickupItems = new List<PickupItem>();
 
@@ -113,6 +115,7 @@ namespace Assets.Changed_game.Scripts.Level
                 InitializeList();
                 LayoutObectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
                 LayoutObectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+                LayoutObectAtRandom(randomCollectable, 5, 6, TileType.Empty);
                 int enemyCount = (int)Mathf.Log(level, 2f);
                 LayoutObectAtRandom(enemyTiles, enemyCount, enemyCount, TileType.Enemy);
                 Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
@@ -139,6 +142,21 @@ namespace Assets.Changed_game.Scripts.Level
                 return; // basicly equals to deleting the object
             }
 
+            //find Item prefab
+            GameObject itemPrefab = null;
+            foreach(var prefab in randomCollectable)
+            {
+                if(prefab.GetComponent<PickUpBehavior>().PickupTypeId == item.PickUpTypeId)
+                {
+                    itemPrefab = prefab;
+                }
+            }
+            if(itemPrefab != null)
+            {
+                itemPrefab.transform.position = item.location;
+                Instantiate(itemPrefab);
+            }
+            
             return;
         }
 
