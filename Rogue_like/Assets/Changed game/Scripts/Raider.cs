@@ -3,27 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MovingObject, Actor {
+public class Raider : MovingObject, Actor {
 
     public int playerDamage;
     public AudioClip enemyAttack1;
     public AudioClip enemyAttack2;
-	public int stepsPerTurn;
+	public int range;
 	public int health = 2;
     
-    private Animator animator;
+    private Animator raiderAnimator;
     private Transform target;
     private bool skipMove;
-    private bool lastDirectionRight;
-    private SpriteRenderer spriteRenderer; 
+	private bool raiderLastDirectionRight;
+	private SpriteRenderer raiderRenderer; 
+
 
 
 	protected override void Start () {
 
         GameManager.instance.AddEnemyToList(this);
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        raiderRenderer = GetComponent<SpriteRenderer>();
+		raiderAnimator = GetComponent<Animator>();
+
+		target = GameObject.FindGameObjectWithTag("Enemy").transform;
+		if(target.transform == null || target.transform == this.transform)
+		{
+			target = GameObject.FindGameObjectWithTag ("Player").transform;
+		}
+
         base.Start();
 	}
 
@@ -36,14 +43,14 @@ public class Enemy : MovingObject, Actor {
 
             if (moveStack.Count != 0)
             {
-                RaycastHit2D hit;
-				if(stepsPerTurn > 1){
-					for (int i = 0; i < stepsPerTurn - 1; i++) {
-						if(moveStack.Count > 1)
-						{
-							moveStack.Pop();
-							//If blocked: attack wall/player and stand next to them
-						}
+				RaycastHit2D hit;
+				if(moveStack.Count <= range)
+				{
+					if(target.tag == "Player"){
+						OnCantMove (target.transform.GetComponent<Player>());
+					//attack when in range
+					} else if(target.tag == "Enemy"){
+						OnCantMove (target.transform.GetComponent<Enemy>());
 					}
 				}
             	Vector2 nextMove = moveStack.Pop();
@@ -54,8 +61,8 @@ public class Enemy : MovingObject, Actor {
                 int xDir = (int)(nextMove.x - transform.position.x);
                 int yDir = (int)(nextMove.y - transform.position.y);
 
-                lastDirectionRight = (xDir > 0 ? true : false);
-                spriteRenderer.flipX = lastDirectionRight;
+                raiderLastDirectionRight = (xDir > 0 ? true : false);
+                raiderRenderer.flipX = raiderLastDirectionRight;
 
                 //Tries to move to location, Moves if it can move
                 if (!Move(xDir, yDir, out hit)){
@@ -86,12 +93,18 @@ public class Enemy : MovingObject, Actor {
 
     protected override void OnCantMove<T>(T component)
     {  
-        if(component.gameObject.name == "Player")
+		if(component.gameObject.name == "Player")
         {
             Player hitPlayer = component as Player;
             hitPlayer.LoseFood(playerDamage);
             SoundManager.instance.RandomizeSFX(enemyAttack1, enemyAttack2);
         }
+		else if(component.gameObject.tag == "Enemy"){
+			//attack enemy
+			Enemy hitEnemy = component as Enemy;
+			hitEnemy.LoseHealth (playerDamage / 10);
+			SoundManager.instance.RandomizeSFX (enemyAttack1,enemyAttack2);
+		}
         else
         {
             Wall hitWall = component as Wall;
@@ -99,12 +112,21 @@ public class Enemy : MovingObject, Actor {
             SoundManager.instance.RandomizeSFX(enemyAttack1);
         }
 
-        animator.SetTrigger("enemyAttack");
+        raiderAnimator.SetTrigger("enemyAttack");
+		if(target.gameObject.tag == "Enemy" && target.gameObject.GetComponent<Enemy>().health <= 0)
+		{
+			target = GameObject.FindGameObjectWithTag ("Enemy").transform;
+			if(target.transform == null || target.transform == this.transform)
+			{
+				target = GameObject.FindGameObjectWithTag ("Player").transform;
+			}
+		}
     }
+
 
 	public void LoseHealth(int loss)
 	{
-		animator.SetTrigger("");
+		raiderAnimator.SetTrigger("");
 		health -= loss;
 		if(health <= 0)
 		{

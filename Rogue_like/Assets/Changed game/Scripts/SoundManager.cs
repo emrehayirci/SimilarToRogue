@@ -34,6 +34,26 @@ public class SoundManager : MonoBehaviour {
         {
             PlaySong(music, roomName);
         }
+
+		if (GameObject.FindGameObjectWithTag ("Shop")) {
+			if(musicSource.clip != music[music.Length - 1])
+				musicSource.Stop ();
+			roomName = "Shop";
+			if(!musicSource.isPlaying)
+				PlaySong (music, roomName);
+		} else if (GameObject.FindGameObjectWithTag ("BossMonster")) {
+			if(musicSource.clip != music[music.Length])
+				musicSource.Stop ();
+			roomName = "Boss";
+			if(!musicSource.isPlaying)
+			PlaySong (music, roomName);
+		} else {
+			if(musicSource.clip == music[music.Length - 1] ||musicSource.clip == music[music.Length])
+				musicSource.Stop ();
+			roomName = "NotSpecial";
+			if(!musicSource.isPlaying)
+				PlaySong (music, roomName);
+		}
     }
 
     public void PlaySingle(AudioClip clip)

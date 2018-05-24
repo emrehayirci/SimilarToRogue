@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour {
 
-    public float moveTime = 0.1f;
+    public float raiderMoveTime = 0.1f;
     public LayerMask blockingLayer;
     public const int MOVE_ATTEMPT_NO_HIT = 0;
     public const int MOVE_ATTEMPT_HIT = 1;
@@ -18,7 +18,7 @@ public abstract class MovingObject : MonoBehaviour {
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
-        inverseMoveTime = 1f / moveTime;
+        inverseMoveTime = 1f / raiderMoveTime;
 	}
 	
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
