@@ -17,10 +17,13 @@ public class GameManager : MonoBehaviour {
 
     public Text levelText;
     public GameObject levelImage;
-    private int level = 1;
+    public int level = 0;
     private List<Enemy> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
+
+    public bool characterChosenRed;
+    public bool characterChosenGreen; 
 
 	// Use this for initialization
 	void Awake () {
@@ -33,13 +36,17 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
+        //characterChosenRed = CharacterRed.instance.isClickedRed;
+        //aracterChosenGreen = CharacterGreen.instance.isClickedGreen; 
+
         DontDestroyOnLoad(gameObject);
+
 
         
 
         enemies = new List<Enemy>();
         boardScript = GetComponent<NewBoardManager>();
-        InitGame();
+        //  InitGame();
 	}
 
     void InitGame()
@@ -119,4 +126,34 @@ public class GameManager : MonoBehaviour {
         level++;
         InitGame();
     }
+
+    /*
+
+    public void WhichCharacter()
+    {
+        if (characterChosenGreen == true)
+            Debug.Log("Oui green");
+
+        if (characterChosenRed == true)
+            Debug.Log("Oui red"); 
+    }
+    */
+
+    /*
+    public void WhichCharacterRed()
+    {
+        Debug.Log("red character");
+
+        SceneManager.LoadScene("Scene1"); 
+
+        //isClickedRed = true;
+    }
+
+    public void WhichCharacterGreen()
+    {
+        Debug.Log("green charizard");
+
+        SceneManager.LoadScene("Scene1");
+    }
+    */
 }
