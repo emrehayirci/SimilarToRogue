@@ -8,6 +8,7 @@ public class Enemy : MovingObject {
     public int playerDamage;
     public AudioClip enemyAttack1;
     public AudioClip enemyAttack2;
+	public int stepsPerTurn;
     
     private Animator animator;
     private Transform target;
@@ -35,10 +36,19 @@ public class Enemy : MovingObject {
             if (moveStack.Count != 0)
             {
                 RaycastHit2D hit;
-                Vector2 nextMove = moveStack.Pop();
+				if(stepsPerTurn > 1){
+					for (int i = 0; i < stepsPerTurn - 1; i++) {
+						if(moveStack.Count > 1)
+						{
+							moveStack.Pop();
+							//If blocked: attack wall/player and stand next to them
+						}
+					}
+				}
+            	Vector2 nextMove = moveStack.Pop();
 
                 Debug.Log("Next");
-                Debug.Log(nextMove);
+                //Debug.Log(nextMove);
 
                 int xDir = (int)(nextMove.x - transform.position.x);
                 int yDir = (int)(nextMove.y - transform.position.y);
