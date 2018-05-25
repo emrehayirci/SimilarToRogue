@@ -116,4 +116,9 @@ public class Enemy : MovingObject, Actor {
 	{
 		return base.raiderMoveTime;
 	}
+
+    public int GetHealth()
+    {
+        return health;
+    }
 }

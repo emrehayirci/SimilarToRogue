@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour {
         }
 
 		if (GameObject.FindGameObjectWithTag ("Shop")) {
-			if(musicSource.clip != music[music.Length - 1])
+			if(musicSource.clip != music[music.Length - 2])
 				musicSource.Stop ();
 			roomName = "Shop";
 			if(!musicSource.isPlaying)
@@ -48,7 +48,7 @@ public class SoundManager : MonoBehaviour {
 			if(!musicSource.isPlaying)
 			PlaySong (music, roomName);
 		} else {
-			if(musicSource.clip == music[music.Length - 1] ||musicSource.clip == music[music.Length])
+			if(musicSource.clip == music[music.Length - 2] ||musicSource.clip == music[music.Length -1])
 				musicSource.Stop ();
 			roomName = "NotSpecial";
 			if(!musicSource.isPlaying)
