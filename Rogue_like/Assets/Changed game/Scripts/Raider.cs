@@ -161,4 +161,9 @@ public class Raider : MovingObject, Actor {
     {
         return health;
     }
+
+    public GameObject getObject()
+    {
+        return this.gameObject;
+    }
 }

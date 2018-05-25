@@ -9,11 +9,12 @@ public class PickUpBehavior : MonoBehaviour {
     public PickupItem objectDetails;
     public PickupType itemType;
     public int maxDurability;
+    public int effect;
     public int PickupTypeId = 0;
 
 	// Use this for initialization
 	void Start () {
-        objectDetails = new PickupItem(itemType, PickupTypeId, this.gameObject.GetComponent<SpriteRenderer>().sprite, maxDurability);
+        objectDetails = new PickupItem(itemType, PickupTypeId, this.gameObject.GetComponent<SpriteRenderer>().sprite, maxDurability, effect);
 	}
 	
 	// Update is called once per frame

@@ -11,6 +11,7 @@ namespace Assets.Changed_game.Scripts.Inventory
         public static int lastItem;
 
         public int id;
+        public int effect;
         public int PickUpTypeId;
         public int Durability;
         public PickupType type;
@@ -21,7 +22,7 @@ namespace Assets.Changed_game.Scripts.Inventory
         public Vector2 location;
 
 
-        public PickupItem(PickupType type, int pickupId, Sprite itemPicture, int maxDurability)
+        public PickupItem(PickupType type, int pickupId, Sprite itemPicture, int maxDurability, int effect)
         {
             lastItem++;
             id = lastItem;
@@ -29,7 +30,7 @@ namespace Assets.Changed_game.Scripts.Inventory
             this.type = type;
             Durability = maxDurability;
             this.itemPicture = itemPicture;
-
+            this.effect = effect;
         }
     }
 }

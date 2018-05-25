@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -75,6 +76,17 @@ public class Player : MovingObject {
     {
         if (!GameManager.instance.playerTurn)
         {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            RangedAttack();
+            return;
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            MeleeAtack();
             return;
         }
 
@@ -205,5 +217,67 @@ public class Player : MovingObject {
             SoundManager.instance.musicSource.Stop();
             GameManager.instance.GameOver();
         }
+    }
+
+    private void MeleeAtack()
+    {
+        GameObject target;
+        float distance;
+
+        if (GetTargetObjects(out target, out distance))
+        {
+            if(distance <= 1.5)
+                target.GetComponent<Actor>().LoseHealth(1 + GetComponent<Inventory>().UseItem(Assets.Changed_game.Scripts.Inventory.PickupType.Weapon));
+
+            if (CharacterRed.instance.isClickedRed == true)
+                animator.SetTrigger("Zombie1Attack");
+            else if (CharacterGreen.instance.isClickedGreen == true)
+                animator.SetTrigger("playerChop");
+        }
+
+        //Calling to skip turn;
+        AttemptMove<Wall>(0, 0);
+    }
+
+    private void RangedAttack()
+    {
+        GameObject target;
+        float distance;
+
+        if (GetTargetObjects(out target, out distance))
+        {
+            target.GetComponent<Actor>().LoseHealth(1 + GetComponent<Inventory>().UseItem(Assets.Changed_game.Scripts.Inventory.PickupType.Spell));
+
+            if (CharacterRed.instance.isClickedRed == true)
+                animator.SetTrigger("Zombie1Attack");
+            else if (CharacterGreen.instance.isClickedGreen == true)
+                animator.SetTrigger("playerChop");
+        }
+
+        //Calling to skip turn;
+        AttemptMove<Wall>(0, 0);
+    }
+
+
+    //Returns closest object to atack
+    private bool GetTargetObjects(out GameObject Target, out float range)
+    {
+        GameObject target = null;
+
+        float minDistance = float.MaxValue;
+        foreach(var enemy in GameManager.instance.enemies)
+        {
+            Vector2 targetLocation = enemy.getObject().transform.position;
+            float distance = Vector2.Distance(targetLocation, transform.position);
+            if(distance < minDistance)
+            {
+                target = enemy.getObject();
+                minDistance = distance;
+            }
+        }
+
+        Target = target;
+        range = minDistance;
+        return (target != null);
     }
 }
