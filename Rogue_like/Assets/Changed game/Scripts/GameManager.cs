@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     public Text levelText;
     public GameObject levelImage;
     private int level = 1;
-	private List<Actor> enemies;
+	public List<Actor> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
 
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
         }
 
         //characterChosenRed = CharacterRed.instance.isClickedRed;
-        //aracterChosenGreen = CharacterGreen.instance.isClickedGreen; 
+        //characterChosenGreen = CharacterGreen.instance.isClickedGreen; 
 
         DontDestroyOnLoad(gameObject);
 
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
 
 		enemies = new List<Actor>();
         boardScript = GetComponent<NewBoardManager>();
-        //  InitGame();
+        //InitGame();
 	}
 
     void InitGame()

@@ -29,7 +29,7 @@ public class FlipSprites : MonoBehaviour {
 
     public void FlipTheSprite()
     {
-        if (mySpriteRenderer != null)
+        if (mySpriteRenderer != null )
         {
             //Debug.Log("Flipping the sprite"); 
             if (Input.GetAxisRaw("Horizontal") < 0)

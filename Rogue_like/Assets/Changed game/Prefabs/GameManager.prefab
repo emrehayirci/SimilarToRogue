@@ -87,6 +87,7 @@ MonoBehaviour:
   - {fileID: 1720329895996382, guid: 13b22dced7d8511469ea20c4261f1ded, type: 2}
   - {fileID: 1710001968191990, guid: 5d8dcf6f471d15d48b0fff273a2fdd39, type: 2}
   - {fileID: 1057656251567198, guid: 4513aa865074ab740afea02e2696d50e, type: 2}
+  - {fileID: 1982755452599628, guid: 66b5bac66ebbacb4fa13cc946f8713af, type: 2}
   outerWallTiles:
   - {fileID: 1482738704131128, guid: 8172fd0c690757d4ea50939db36a3259, type: 2}
   - {fileID: 1514860100016934, guid: b8fa5535a31bc3041aa267fd417b1a08, type: 2}
@@ -162,3 +163,5 @@ MonoBehaviour:
   playerTurn: 1
   levelText: {fileID: 0}
   levelImage: {fileID: 0}
+  characterChosenRed: 0
+  characterChosenGreen: 0

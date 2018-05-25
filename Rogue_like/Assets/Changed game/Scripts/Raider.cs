@@ -69,7 +69,7 @@ public class Raider : MovingObject, Actor {
                 int xDir = (int)(nextMove.x - transform.position.x);
                 int yDir = (int)(nextMove.y - transform.position.y);
 
-                raiderLastDirectionRight = (xDir > 0 ? true : false);
+                raiderLastDirectionRight = (xDir < 0 ? true : false);
                 raiderRenderer.flipX = raiderLastDirectionRight;
 
                 //Tries to move to location, Moves if it can move
@@ -114,7 +114,7 @@ public class Raider : MovingObject, Actor {
 			hitEnemy.LoseHealth (playerDamage / 10);
 			SoundManager.instance.RandomizeSFX (enemyAttack1,enemyAttack2);
 		}
-        else if(component.gameObject.tag == "Enemy")
+        else if(component.gameObject.tag == "Enemy" || component.gameObject.tag == "BossMonster")
         {
             Enemy hitEnemy = component as Enemy;
             hitEnemy.LoseHealth(playerDamage / 10);
@@ -134,6 +134,10 @@ public class Raider : MovingObject, Actor {
 			{
 				target = GameObject.FindGameObjectWithTag ("Player").transform;
 			}
+            else if(GameObject.FindWithTag("BossMonster"))
+            {
+                target = GameObject.FindGameObjectWithTag("BossMonster").transform;
+            }
             else
             {
                 target = GameObject.FindGameObjectWithTag("Enemy").transform;

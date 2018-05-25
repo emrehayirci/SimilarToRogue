@@ -13,20 +13,14 @@ public class CharacterRed : MonoBehaviour {
         instance = this; 
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void OnMouseOver()
+    {
+        //change alpha to show selection
+    }
 
     public void OnMouseDown()
     {
         isClickedRed = true;
-        //DontDestroyOnLoad(isClickedRed); 
         Debug.Log("im choosing the red character");
         SceneManager.LoadScene("Scene1"); 
 

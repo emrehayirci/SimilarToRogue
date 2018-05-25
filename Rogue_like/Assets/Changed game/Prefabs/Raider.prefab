@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50408173226873162}
   - component: {fileID: 61486233757281424}
   - component: {fileID: 114153284358335362}
+  - component: {fileID: 114085821569302100}
   m_Layer: 8
   m_Name: Raider
   m_TagString: Raider
@@ -107,6 +108,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114085821569302100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1710001968191990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b287664f488d3654d890e5d7a565f8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySpriteRenderer: {fileID: 0}
 --- !u!114 &114153284358335362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,6 +135,7 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  greenSpeed: 2
   playerDamage: 10
   enemyAttack1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
   enemyAttack2: {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}
@@ -164,7 +178,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.9528302, g: 0.33708617, b: 0.33708617, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
