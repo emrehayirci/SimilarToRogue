@@ -102,7 +102,7 @@ namespace Assets.Changed_game.Scripts.Level
 
         public void SetupScene(int level)
         {
-            do
+            //do
             {
 				BoardSetup();
 				InitializeList();
@@ -118,7 +118,7 @@ namespace Assets.Changed_game.Scripts.Level
 				}
 				Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f),Quaternion.identity);
             }
-            while (PathFinding.Calculate(new Vector2(0,0), new Vector2(7, 7)).Count == 0); //Pathfinding returns no moves
+            //while (PathFinding.Calculate(new Vector2(0,0), new Vector2(7, 7)).Count == 0); //Pathfinding returns no moves
         }
     }
 }

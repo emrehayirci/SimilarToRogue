@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class Player : MovingObject {
 
+    public static Player instance;
+
+    public Sprite mySprite; 
+
     public int wallDamage = 1;
     public int pointsPerFood = 10;
     public int pointsPerSoda = 20;
@@ -24,10 +28,14 @@ public class Player : MovingObject {
     public int food;
 
     private SpriteRenderer mySpriteRenderer;
+    public Animator anims;
+    public RuntimeAnimatorController anim1;
 
     private void Awake()
     {
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        this.GetComponent<SpriteRenderer>().sprite = mySprite;
+        instance = this; 
     }
 
     // Use this for initialization
@@ -38,13 +46,29 @@ public class Player : MovingObject {
 
         foodText.text = "Food: " + food;
 
+        //if the character chosen was red, it should be stronger
+        if (CharacterRed.instance.isClickedRed == true)
+        {
+            wallDamage = 3;
+            //display teh red character controller; 
+            Animator animator = transform.gameObject.GetComponent<Animator>();
+            this.GetComponent<Animator>().runtimeAnimatorController = anim1 as RuntimeAnimatorController;
+
+            if (Input.GetKeyDown((KeyCode.RightArrow)))
+            {
+
+                mySpriteRenderer.flipX = true;
+            }
+        }
+
         base.Start();
 	}
 
-    private void OnDisable()
-    {
-        GameManager.instance.playerFoodPoints = food;
-    }
+    //private void OnDisable()
+    //{
+    //    Debug.Log("OnDisable player "+food);
+    //    GameManager.instance.playerFoodPoints = food;
+    //}
 
     // Update is called once per frame
     void Update()
@@ -71,7 +95,7 @@ public class Player : MovingObject {
             vertical = 0;
         }
 
-        if (mySpriteRenderer != null)
+        if (mySpriteRenderer != null || CharacterRed.instance.isClickedRed == false)
         {
             if (Input.GetKeyDown((KeyCode.LeftArrow)))
             {
@@ -110,6 +134,7 @@ public class Player : MovingObject {
     {
         if(other.tag == "Exit")
         {
+            Debug.Log(food);
             GameManager.instance.playerFoodPoints = food;
             Invoke("Restart",restartLevelDelay);
             enabled = false;
@@ -134,19 +159,29 @@ public class Player : MovingObject {
     {
         Wall hitWall = component as Wall;
         hitWall.DamageWall(wallDamage);
-        animator.SetTrigger("playerChop");
+        if (CharacterRed.instance.isClickedRed == true)
+            animator.SetTrigger("Zombie1Attack");
+        else if (CharacterGreen.instance.isClickedGreen == true)
+            animator.SetTrigger("playerChop");
+        //animator.SetTrigger("playerChop");
     }
 
     private void Restart()
     {
+        Debug.Log("Restart");
         //turn on level image and increase the level in here before loading the next level
         GameManager.instance.ShowLevelImageBeforeLoad(GameManager.instance.levelText, GameManager.instance.levelImage);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Scene1");
+        
     }
 
     public void LoseFood(int loss)
     {
-        animator.SetTrigger("playerHit");
+        if (CharacterRed.instance.isClickedRed == true)
+            animator.SetTrigger("Zombie1Attack");
+        else if (CharacterGreen.instance.isClickedGreen == true)
+            animator.SetTrigger("playerHit"); 
+
         food -= loss;
         foodText.text = "- " + loss + "Food: " + food;
         CheckIfGameOver();
