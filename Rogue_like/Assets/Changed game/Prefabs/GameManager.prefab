@@ -91,6 +91,13 @@ MonoBehaviour:
   - {fileID: 1482738704131128, guid: 8172fd0c690757d4ea50939db36a3259, type: 2}
   - {fileID: 1514860100016934, guid: b8fa5535a31bc3041aa267fd417b1a08, type: 2}
   - {fileID: 1391382110017004, guid: afc17bfc063421c4987fd8d2e409d4e0, type: 2}
+  randomCollectable:
+  - {fileID: 1629746498444568, guid: ef6bc105860bbd040a1f9dbfb5fa15cf, type: 2}
+  - {fileID: 1262173713530548, guid: 44b51ba1cc10b224fb3306cf2cac6ff9, type: 2}
+  - {fileID: 1646468760114964, guid: 6c7353a8c4661094ab0e37fef3e94530, type: 2}
+  - {fileID: 1090017565795492, guid: a37c62c7be013b54c95b026b5c8aae14, type: 2}
+  - {fileID: 1554330601916480, guid: f54b14d8da36a7546917620507f2eccd, type: 2}
+  - {fileID: 1142976355647292, guid: beb3016cd3d20b74b8d7a88d64a3a16d, type: 2}
   shopKeeper: {fileID: 114739993818924262, guid: 887caf33c68632a45bd7c941e186ec51,
     type: 2}
 --- !u!114 &114567952349718650

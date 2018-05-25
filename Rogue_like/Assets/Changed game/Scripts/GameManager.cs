@@ -1,4 +1,5 @@
-﻿using Assets.Changed_game.Scripts.Level;
+﻿using Assets.Changed_game.Scripts.Inventory;
+using Assets.Changed_game.Scripts.Level;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,8 @@ public class GameManager : MonoBehaviour {
     public Text levelText;
     public GameObject levelImage;
     private int level = 1;
-	private List<Actor> enemies;
+    private List<PickupItem> itemsSaved = null;
+	  private List<Actor> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
 
@@ -121,6 +123,22 @@ public class GameManager : MonoBehaviour {
         enemiesMoving = false;
     }
     
+    public void SaveItems(List<PickupItem> items)
+    {
+        this.itemsSaved = items;
+    }
+
+    public List<PickupItem> GetSavedItems()
+    {
+        List<PickupItem> items = new List<PickupItem>();
+        if(level != 1 && itemsSaved != null)
+        {
+            items = this.itemsSaved;
+        }
+
+        return items;
+    }
+
     void OnLevelWasLoaded(int index)
     {
         level++;

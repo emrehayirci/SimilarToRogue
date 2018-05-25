@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Changed_game.Scripts.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,8 +32,15 @@ namespace Assets.Changed_game.Scripts.Level
         public GameObject[] foodTiles;
         public GameObject[] enemyTiles;
         public GameObject[] outerWallTiles;
+        public GameObject[] randomCollectable;
+
         public TileType[,] BoardTiles;
 		public ShopKeeper shopKeeper;
+
+
+
+        //PickUp Items Container for ground items
+        public List<PickupItem> pickupItems = new List<PickupItem>();
 
         private Transform boardHolder;
         private List<Vector3> gridPositions = new List<Vector3>();
@@ -102,23 +110,86 @@ namespace Assets.Changed_game.Scripts.Level
 
         public void SetupScene(int level)
         {
-            //do
+          BoardSetup();
+          InitializeList();
+          int random = (int)Random.Range(0,10);
+          if (random == 5) {
+            Instantiate (shopKeeper, new Vector3(columns/2,rows/2,0f),Quaternion.identity);
+            LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+          } else {
+            LayoutObectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
+            LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+            int enemyCount = (int)Mathf.Log (level, 2f);
+            LayoutObectAtRandom (enemyTiles, enemyCount, enemyCount,TileType.Enemy);
+            LayoutObectAtRandom(randomCollectable, 5, 6, TileType.Empty);
+          }
+          Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f),Quaternion.identity);
+        }
+
+
+        public void AddPickupItem(PickupItem item, Vector2 location)
+        {
+            Vector2 newLocation;
+
+            if(GetEmptyLocationNear(location, out newLocation))
             {
-				BoardSetup();
-				InitializeList();
-				int random = (int)Random.Range(0,10);
-				if (random == 5) {
-					Instantiate (shopKeeper, new Vector3(columns/2,rows/2,0f),Quaternion.identity);
-					LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
-				} else {
-					LayoutObectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
-					LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
-					int enemyCount = (int)Mathf.Log (level, 2f);
-					LayoutObectAtRandom (enemyTiles, enemyCount, enemyCount,TileType.Enemy);
-				}
-				Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f),Quaternion.identity);
+                item.location = newLocation;
+                pickupItems.Add(item);
             }
-            //while (PathFinding.Calculate(new Vector2(0,0), new Vector2(7, 7)).Count == 0); //Pathfinding returns no moves
+            else
+            {
+                //if there is no suitable place
+                return; // basicly equals to deleting the object
+            }
+
+            //find Item prefab
+            GameObject itemPrefab = null;
+            foreach(var prefab in randomCollectable)
+            {
+                if(prefab.GetComponent<PickUpBehavior>().PickupTypeId == item.PickUpTypeId)
+                {
+                    itemPrefab = prefab;
+                }
+            }
+            if(itemPrefab != null)
+            {
+                itemPrefab.transform.position = item.location;
+                Instantiate(itemPrefab);
+            }
+            
+            return;
+        }
+
+        //Basic Level, needs to improve
+        public bool GetEmptyLocationNear(Vector2 start, out Vector2 location)
+        {
+            
+
+            int x = (int)start.x;
+            int y = (int)start.y;
+            if (x < BoardTiles.GetLength(0) - 1 && BoardTiles[x + 1,y] == TileType.Empty)
+            {
+                location = new Vector2(x + 1, y);
+                return true;
+            }
+            else if (y < BoardTiles.GetLength(1) - 1 && BoardTiles[x, y + 1] == TileType.Empty)
+            {
+                location = new Vector2(x, y + 1);
+                return true;
+            }
+            else if (x > 0  && BoardTiles[x - 1, y] == TileType.Empty)
+            {
+                location = new Vector2(x - 1, y);
+                return true;
+            }
+            else if (y > 0 && BoardTiles[x, y - 1] == TileType.Empty)
+            {
+                location = new Vector2(x, y - 1);
+                return true;
+            }
+
+            location = start;
+            return false;
         }
     }
 }

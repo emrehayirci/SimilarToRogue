@@ -136,6 +136,8 @@ public class Player : MovingObject {
         {
             Debug.Log(food);
             GameManager.instance.playerFoodPoints = food;
+            GameManager.instance.SaveItems(GetComponent<Inventory>().items);
+
             Invoke("Restart",restartLevelDelay);
             enabled = false;
         }
@@ -152,6 +154,14 @@ public class Player : MovingObject {
             foodText.text = "+ " + pointsPerSoda + " Food: " + food;
             SoundManager.instance.RandomizeSFX(drinkSound1, drinkSound2);
             other.gameObject.SetActive(false);
+        }
+        else if (other.tag == "PickUp")
+        {
+            this.GetComponent<Inventory>().AddItem(other.GetComponent<PickUpBehavior>().objectDetails);
+            // remove object from map
+
+            other.gameObject.SetActive(false);
+
         }
     }
 
