@@ -111,6 +111,8 @@ public class Player : MovingObject {
         if(other.tag == "Exit")
         {
             GameManager.instance.playerFoodPoints = food;
+            GameManager.instance.SaveItems(GetComponent<Inventory>().items);
+
             Invoke("Restart",restartLevelDelay);
             enabled = false;
         }

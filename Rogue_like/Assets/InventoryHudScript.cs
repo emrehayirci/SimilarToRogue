@@ -14,7 +14,7 @@ public class InventoryHudScript : MonoBehaviour {
 
     public Sprite placeholderSprite;
 
-    public void Start()
+    public void Awake()
     {
         instance = this;
     }

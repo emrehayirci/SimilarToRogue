@@ -12,7 +12,9 @@ public class Inventory : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        items = new List<PickupItem>();
+        items = GameManager.instance.GetSavedItems();
+        itemCount = items.Count;
+        DisplayItems();
 	}
 	
 
