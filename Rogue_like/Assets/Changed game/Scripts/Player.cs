@@ -25,7 +25,7 @@ public class Player : MovingObject {
     public AudioClip gameOverSound;
 
     private Animator animator;
-    private int food;
+    public int food;
 
     private SpriteRenderer mySpriteRenderer;
     public Animator anims;

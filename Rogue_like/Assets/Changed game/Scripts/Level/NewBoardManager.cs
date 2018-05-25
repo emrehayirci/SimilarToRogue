@@ -32,6 +32,7 @@ namespace Assets.Changed_game.Scripts.Level
         public GameObject[] enemyTiles;
         public GameObject[] outerWallTiles;
         public TileType[,] BoardTiles;
+		public ShopKeeper shopKeeper;
 
         private Transform boardHolder;
         private List<Vector3> gridPositions = new List<Vector3>();
@@ -103,14 +104,19 @@ namespace Assets.Changed_game.Scripts.Level
         {
             //do
             {
-                BoardSetup();
-                InitializeList();
-                LayoutObectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
-                LayoutObectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
-                int enemyCount = (int)Mathf.Log(level, 2f);
-                LayoutObectAtRandom(enemyTiles, enemyCount, enemyCount, TileType.Enemy);
-                Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
-                Debug.Log("exit");
+				BoardSetup();
+				InitializeList();
+				int random = (int)Random.Range(0,10);
+				if (random == 5) {
+					Instantiate (shopKeeper, new Vector3(columns/2,rows/2,0f),Quaternion.identity);
+					LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+				} else {
+					LayoutObectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
+					LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+					int enemyCount = (int)Mathf.Log (level, 2f);
+					LayoutObectAtRandom (enemyTiles, enemyCount, enemyCount,TileType.Enemy);
+				}
+				Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f),Quaternion.identity);
             }
             //while (PathFinding.Calculate(new Vector2(0,0), new Vector2(7, 7)).Count == 0); //Pathfinding returns no moves
         }

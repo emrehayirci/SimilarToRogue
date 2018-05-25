@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MovingObject {
+public class Enemy : MovingObject, Actor {
 
     public int playerDamage;
     public AudioClip enemyAttack1;
     public AudioClip enemyAttack2;
+	public int stepsPerTurn;
+	public int health = 2;
     
     private Animator animator;
     private Transform target;
@@ -35,10 +37,19 @@ public class Enemy : MovingObject {
             if (moveStack.Count != 0)
             {
                 RaycastHit2D hit;
-                Vector2 nextMove = moveStack.Pop();
+				if(stepsPerTurn > 1){
+					for (int i = 0; i < stepsPerTurn - 1; i++) {
+						if(moveStack.Count > 1)
+						{
+							moveStack.Pop();
+							//If blocked: attack wall/player and stand next to them
+						}
+					}
+				}
+            	Vector2 nextMove = moveStack.Pop();
 
                 Debug.Log("Next");
-                Debug.Log(nextMove);
+                //Debug.Log(nextMove);
 
                 int xDir = (int)(nextMove.x - transform.position.x);
                 int yDir = (int)(nextMove.y - transform.position.y);
@@ -90,4 +101,19 @@ public class Enemy : MovingObject {
 
         animator.SetTrigger("enemyAttack");
     }
+
+	public void LoseHealth(int loss)
+	{
+		animator.SetTrigger("");
+		health -= loss;
+		if(health <= 0)
+		{
+			this.gameObject.SetActive(false);
+		}
+	}
+
+	public float GetMoveTime()
+	{
+		return base.raiderMoveTime;
+	}
 }

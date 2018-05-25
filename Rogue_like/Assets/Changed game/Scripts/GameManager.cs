@@ -17,8 +17,13 @@ public class GameManager : MonoBehaviour {
 
     public Text levelText;
     public GameObject levelImage;
+<<<<<<< HEAD
     public int level = 0;
     private List<Enemy> enemies;
+=======
+    private int level = 1;
+	private List<Actor> enemies;
+>>>>>>> NPC
     private bool enemiesMoving;
     private bool doingSetup;
 
@@ -44,7 +49,7 @@ public class GameManager : MonoBehaviour {
 
         
 
-        enemies = new List<Enemy>();
+		enemies = new List<Actor>();
         boardScript = GetComponent<NewBoardManager>();
         //  InitGame();
 	}
@@ -97,9 +102,9 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(MoveEnemies());
 	}
 
-    public void AddEnemyToList(Enemy script)
+	public void AddEnemyToList(Actor script)
     {
-        enemies.Add(script);
+		enemies.Add(script);
     }
 
     IEnumerator MoveEnemies()
@@ -114,7 +119,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].MoveEnemy();
-            yield return new WaitForSeconds(enemies[i].moveTime);
+			yield return new WaitForSeconds(enemies[i].GetMoveTime());
         }
 
         playerTurn = true;
