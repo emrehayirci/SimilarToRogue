@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114153284358335362}
   m_Layer: 8
   m_Name: Raider
-  m_TagString: Enemy
+  m_TagString: Raider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

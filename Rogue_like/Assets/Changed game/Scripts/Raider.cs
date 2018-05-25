@@ -25,11 +25,15 @@ public class Raider : MovingObject, Actor {
         raiderRenderer = GetComponent<SpriteRenderer>();
 		raiderAnimator = GetComponent<Animator>();
 
-		target = GameObject.FindGameObjectWithTag("Enemy").transform;
-		if(target.transform == null || target.transform == this.transform)
+		
+		if(GameObject.FindWithTag("Enemy") == null)
 		{
 			target = GameObject.FindGameObjectWithTag ("Player").transform;
 		}
+        else
+        {
+            target = GameObject.FindGameObjectWithTag("Enemy").transform;
+        }
 
         base.Start();
 	}
@@ -46,12 +50,16 @@ public class Raider : MovingObject, Actor {
 				RaycastHit2D hit;
 				if(moveStack.Count <= range)
 				{
-					if(target.tag == "Player"){
-						OnCantMove (target.transform.GetComponent<Player>());
+					if(target.gameObject.tag == "Player"){
+						OnCantMove(target.transform.GetComponent<Player>());
 					//attack when in range
-					} else if(target.tag == "Enemy"){
-						OnCantMove (target.transform.GetComponent<Enemy>());
+					} else if(target.gameObject.tag == "Raider"){
+						OnCantMove(target.transform.GetComponent<Raider>());
 					}
+                    else if(target.gameObject.tag == "Enemy")
+                    {
+                        OnCantMove(target.transform.GetComponent<Enemy>());
+                    }
 				}
             	Vector2 nextMove = moveStack.Pop();
 
@@ -93,18 +101,25 @@ public class Raider : MovingObject, Actor {
 
     protected override void OnCantMove<T>(T component)
     {  
-		if(component.gameObject.name == "Player")
+		if(component.gameObject.tag == "Player")
         {
             Player hitPlayer = component as Player;
             hitPlayer.LoseFood(playerDamage);
             SoundManager.instance.RandomizeSFX(enemyAttack1, enemyAttack2);
         }
-		else if(component.gameObject.tag == "Enemy"){
+		else if(component.gameObject.tag == "Raider")
+        {
 			//attack enemy
-			Enemy hitEnemy = component as Enemy;
+			Raider hitEnemy = component as Raider;
 			hitEnemy.LoseHealth (playerDamage / 10);
 			SoundManager.instance.RandomizeSFX (enemyAttack1,enemyAttack2);
 		}
+        else if(component.gameObject.tag == "Enemy")
+        {
+            Enemy hitEnemy = component as Enemy;
+            hitEnemy.LoseHealth(playerDamage / 10);
+            SoundManager.instance.RandomizeSFX(enemyAttack1, enemyAttack2);
+        }
         else
         {
             Wall hitWall = component as Wall;
@@ -113,13 +128,16 @@ public class Raider : MovingObject, Actor {
         }
 
         raiderAnimator.SetTrigger("enemyAttack");
-		if(target.gameObject.tag == "Enemy" && target.gameObject.GetComponent<Enemy>().health <= 0)
+		if(target.gameObject.tag == "Enemy" && target.gameObject.GetComponent<Actor>().GetHealth() <= 0)
 		{
-			target = GameObject.FindGameObjectWithTag ("Enemy").transform;
-			if(target.transform == null || target.transform == this.transform)
+			if(GameObject.FindWithTag("Enemy") == null)
 			{
 				target = GameObject.FindGameObjectWithTag ("Player").transform;
 			}
+            else
+            {
+                target = GameObject.FindGameObjectWithTag("Enemy").transform;
+            }
 		}
     }
 
@@ -138,4 +156,9 @@ public class Raider : MovingObject, Actor {
 	{
 		return base.raiderMoveTime;
 	}
+
+    public int GetHealth()
+    {
+        return health;
+    }
 }
