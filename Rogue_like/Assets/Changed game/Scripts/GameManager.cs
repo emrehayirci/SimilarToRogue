@@ -19,10 +19,13 @@ public class GameManager : MonoBehaviour {
     public Text levelText;
     public GameObject levelImage;
     private int level = 1;
-    private List<Enemy> enemies;
     private List<PickupItem> itemsSaved = null;
+	  private List<Actor> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
+
+    public bool characterChosenRed;
+    public bool characterChosenGreen; 
 
 	// Use this for initialization
 	void Awake () {
@@ -35,13 +38,17 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
+        //characterChosenRed = CharacterRed.instance.isClickedRed;
+        //aracterChosenGreen = CharacterGreen.instance.isClickedGreen; 
+
         DontDestroyOnLoad(gameObject);
+
 
         
 
-        enemies = new List<Enemy>();
+		enemies = new List<Actor>();
         boardScript = GetComponent<NewBoardManager>();
-        InitGame();
+        //  InitGame();
 	}
 
     void InitGame()
@@ -92,9 +99,9 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(MoveEnemies());
 	}
 
-    public void AddEnemyToList(Enemy script)
+	public void AddEnemyToList(Actor script)
     {
-        enemies.Add(script);
+		enemies.Add(script);
     }
 
     IEnumerator MoveEnemies()
@@ -109,7 +116,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].MoveEnemy();
-            yield return new WaitForSeconds(enemies[i].moveTime);
+			yield return new WaitForSeconds(enemies[i].GetMoveTime());
         }
 
         playerTurn = true;
@@ -137,4 +144,34 @@ public class GameManager : MonoBehaviour {
         level++;
         InitGame();
     }
+
+    /*
+
+    public void WhichCharacter()
+    {
+        if (characterChosenGreen == true)
+            Debug.Log("Oui green");
+
+        if (characterChosenRed == true)
+            Debug.Log("Oui red"); 
+    }
+    */
+
+    /*
+    public void WhichCharacterRed()
+    {
+        Debug.Log("red character");
+
+        SceneManager.LoadScene("Scene1"); 
+
+        //isClickedRed = true;
+    }
+
+    public void WhichCharacterGreen()
+    {
+        Debug.Log("green charizard");
+
+        SceneManager.LoadScene("Scene1");
+    }
+    */
 }

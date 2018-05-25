@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour {
 
-    public float moveTime = 0.1f;
+    public float raiderMoveTime = 0.1f;
     public LayerMask blockingLayer;
     public const int MOVE_ATTEMPT_NO_HIT = 0;
     public const int MOVE_ATTEMPT_HIT = 1;
@@ -13,12 +13,14 @@ public abstract class MovingObject : MonoBehaviour {
     private Rigidbody2D rb2D;
     private float inverseMoveTime;
 
+    public float greenSpeed = 2; 
+
 	
 	protected virtual void Start ()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
-        inverseMoveTime = 1f / moveTime;
+        inverseMoveTime = 1f / raiderMoveTime;
 	}
 	
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
@@ -42,20 +44,46 @@ public abstract class MovingObject : MonoBehaviour {
     {
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 
-        while(sqrRemainingDistance > float.Epsilon)
+        while (sqrRemainingDistance > float.Epsilon)
+        //for green character
         {
-            Vector3 newPosition = Vector3.MoveTowards(rb2D.position,end,inverseMoveTime*Time.deltaTime);
-            rb2D.MovePosition(newPosition);
-            sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-            yield return null;
+            /*
+            if (CharacterRed.instance.isClickedRed == true)
+            {
+                Debug.Log("alas red char"); 
+                Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+                rb2D.MovePosition(newPosition);
+                sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+                //yield return null;
+            }
+            else if (CharacterGreen.instance.isClickedGreen == true)
+            {
+            */
+                //Debug.Log("alas green char"); 
+                Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+                rb2D.MovePosition(newPosition);
+                sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+                yield return null;
+
+
+            //}
+
+            //
         }
     }
 
+
+    //if the character is green it should move faster
     protected virtual int AttemptMove <T> (int xDir, int yDir)
         where T : Component
     {
         RaycastHit2D hit;
         bool canMove = Move(xDir, yDir, out hit);
+
+        if (CharacterGreen.instance.isClickedGreen == true && CharacterRed.instance.isClickedRed == false)
+        {
+            Move(xDir * 2, yDir * 2, out hit); 
+        }
 
         if (hit.transform == null)
             return MOVE_ATTEMPT_NO_HIT;

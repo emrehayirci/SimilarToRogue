@@ -35,6 +35,7 @@ namespace Assets.Changed_game.Scripts.Level
         public GameObject[] randomCollectable;
 
         public TileType[,] BoardTiles;
+		public ShopKeeper shopKeeper;
 
 
 
@@ -109,23 +110,22 @@ namespace Assets.Changed_game.Scripts.Level
 
         public void SetupScene(int level)
         {
-            do
-            {
-                BoardSetup();
-                InitializeList();
-                LayoutObectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
-                LayoutObectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
-                LayoutObectAtRandom(randomCollectable, 5, 6, TileType.Empty);
-                int enemyCount = (int)Mathf.Log(level, 2f);
-                LayoutObectAtRandom(enemyTiles, enemyCount, enemyCount, TileType.Enemy);
-                Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
-            }
-            while (PathFinding.Calculate(new Vector2(0,0), new Vector2(7, 7)).Count == 0); //Pathfinding returns no moves
-                
-            //Adding collactables
-
-
+          BoardSetup();
+          InitializeList();
+          int random = (int)Random.Range(0,10);
+          if (random == 5) {
+            Instantiate (shopKeeper, new Vector3(columns/2,rows/2,0f),Quaternion.identity);
+            LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+          } else {
+            LayoutObectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
+            LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+            int enemyCount = (int)Mathf.Log (level, 2f);
+            LayoutObectAtRandom (enemyTiles, enemyCount, enemyCount,TileType.Enemy);
+            LayoutObectAtRandom(randomCollectable, 5, 6, TileType.Empty);
+          }
+          Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f),Quaternion.identity);
         }
+
 
         public void AddPickupItem(PickupItem item, Vector2 location)
         {

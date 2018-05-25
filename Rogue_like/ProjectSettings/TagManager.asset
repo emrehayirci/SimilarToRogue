@@ -9,6 +9,9 @@ TagManager:
   - Enemy
   - Soda
   - PickUp
+  - Shop
+  - BossMonster
+  - Raider
   layers:
   - Default
   - TransparentFX

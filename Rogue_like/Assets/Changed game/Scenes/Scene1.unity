@@ -215,10 +215,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78789d77dc87cfd449a6ffe445259d7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.1
+  raiderMoveTime: 0.1
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  greenSpeed: 2
+  mySprite: {fileID: 21300012, guid: fbe1e7b94bb1a4a099d5bcb15a00141c, type: 3}
   wallDamage: 1
   pointsPerFood: 10
   pointsPerSoda: 20
@@ -231,6 +233,9 @@ MonoBehaviour:
   drinkSound1: {fileID: 8300000, guid: b6b608537288246c9a464915db27bf52, type: 3}
   drinkSound2: {fileID: 8300000, guid: bcb9dda73ee914d3e8f252895f73f461, type: 3}
   gameOverSound: {fileID: 8300000, guid: e2beefeb2273f4efe992adf5b8d67c29, type: 3}
+  anims: {fileID: 0}
+  anim1: {fileID: 9100000, guid: 00c17122a5a5ec249be7c79d10d8879a, type: 2}
+  food: 0
 --- !u!224 &434713869 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224140779403514132, guid: 3b8009afbc7251d4991a505ebaa24948,
@@ -460,20 +465,28 @@ MonoBehaviour:
   musicSource: {fileID: 868872849}
   lowPitchRange: 0.95
   highPitchRange: 1.05
+  roomName: NotSpecial
+  music:
+  - {fileID: 8300000, guid: 846678c35cf8d4f48825137ec62a3cfa, type: 3}
+  - {fileID: 8300000, guid: d6e99acf224294049888bbcc9a74ecb6, type: 3}
+  - {fileID: 8300000, guid: 2d75080d0851d4613ada1117d91ee417, type: 3}
+  - {fileID: 8300000, guid: 5319cd404426a7144be375bb8b524d6a, type: 3}
+  - {fileID: 8300000, guid: cc9680a480de2fa42a2f4509fc979722, type: 3}
+  - {fileID: 8300000, guid: 59f1e2a63cc8778498b34b6fdd8e76fb, type: 3}
 --- !u!82 &868872849
 AudioSource:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 868872847}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2d75080d0851d4613ada1117d91ee417, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -561,7 +574,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 868872847}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -931,6 +944,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4742470362407514, guid: 7f9dfd471c86e894ba35694e9861f8a2, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212665878833647852, guid: 7f9dfd471c86e894ba35694e9861f8a2,
+        type: 2}
+      propertyPath: m_FlipX
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
