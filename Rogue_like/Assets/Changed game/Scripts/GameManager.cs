@@ -17,13 +17,8 @@ public class GameManager : MonoBehaviour {
 
     public Text levelText;
     public GameObject levelImage;
-<<<<<<< HEAD
-    public int level = 0;
-    private List<Enemy> enemies;
-=======
     private int level = 1;
 	private List<Actor> enemies;
->>>>>>> NPC
     private bool enemiesMoving;
     private bool doingSetup;
 
