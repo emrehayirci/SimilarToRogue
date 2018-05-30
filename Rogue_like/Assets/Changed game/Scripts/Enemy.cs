@@ -121,4 +121,9 @@ public class Enemy : MovingObject, Actor {
     {
         return health;
     }
+
+    public GameObject getObject()
+    {
+        return this.gameObject;
+    }
 }

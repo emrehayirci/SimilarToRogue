@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public interface Actor
 {
@@ -6,4 +7,5 @@ public interface Actor
     int GetHealth();
 	float GetMoveTime();
     void LoseHealth(int loss);
+    GameObject getObject();
 }

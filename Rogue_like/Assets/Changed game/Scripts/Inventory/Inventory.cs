@@ -16,8 +16,6 @@ public class Inventory : MonoBehaviour {
         itemCount = items.Count;
         DisplayItems();
 	}
-	
-
 
     /*
      * Returns true if Item picked
@@ -45,6 +43,25 @@ public class Inventory : MonoBehaviour {
         GameManager.instance.boardScript.AddPickupItem(itemToDrop, transform.position);
         itemCount--;
         return items.Remove(itemToDrop);    
+    }
+
+    public int UseItem(PickupType type)
+    {
+        PickupItem item = items.Find(x => x.type == type);
+        if(item != null)
+        {
+            item.Durability--;
+            Debug.Log(item.Durability);
+            if(item.Durability == 0)
+            {
+                items.Remove(item);
+            }
+
+            DisplayItems();
+
+            return item.effect;
+        }
+        return 0;
     }
 
     void DisplayItems()
