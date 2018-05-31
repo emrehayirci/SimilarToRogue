@@ -28,9 +28,11 @@ public class ShopKeeper : MonoBehaviour {
 
             GameObject newItem = Instantiate(randomObject, position, Quaternion.identity);
             newItem.GetComponent<PickUpBehavior>().owner = this;
-            newItem.GetComponent<PickUpBehavior>().id = i;
 
-            Debug.Log("wowo" + randomCost);
+            //Self assignment used because other gameobject start 
+            //method haven't started yet! IDs not consistent right now. 
+            //So we force to give one id beforehand
+            newItem.GetComponent<PickUpBehavior>().id = i;
 
             //Add item to priceList
             priceList.Add(newItem.GetComponent<PickUpBehavior>().id, randomCost);
@@ -43,7 +45,6 @@ public class ShopKeeper : MonoBehaviour {
 
     public void SellItem(PickupItem item)
     {
-        Debug.Log("wowo" + item.id);
         //Sellin Item
         Player.instance.LoseFood(priceList[item.id]);
     }
