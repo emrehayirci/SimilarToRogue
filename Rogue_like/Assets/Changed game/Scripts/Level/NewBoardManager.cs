@@ -113,9 +113,9 @@ namespace Assets.Changed_game.Scripts.Level
           BoardSetup();
           InitializeList();
           int random = (int)Random.Range(0,10);
-          if (random == 5) {
+          if (random != 5) {
             Instantiate (shopKeeper, new Vector3(columns/2,rows/2,0f),Quaternion.identity);
-            LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+            //LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
           } else {
             LayoutObectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
             LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
