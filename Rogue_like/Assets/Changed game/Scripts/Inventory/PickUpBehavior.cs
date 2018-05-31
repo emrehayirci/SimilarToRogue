@@ -12,6 +12,8 @@ public class PickUpBehavior : MonoBehaviour {
     public int effect;
     public int PickupTypeId = 0;
 
+    public ShopKeeper owner = null;
+
 	// Use this for initialization
 	void Start () {
         objectDetails = new PickupItem(itemType, PickupTypeId, this.gameObject.GetComponent<SpriteRenderer>().sprite, maxDurability, effect);
@@ -21,4 +23,16 @@ public class PickUpBehavior : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.name == "Player")
+        {
+            //Checks if shopkeper selling item
+            if(owner != null)
+            {
+                owner.SellItem(objectDetails);
+            }
+        }
+    }
 }

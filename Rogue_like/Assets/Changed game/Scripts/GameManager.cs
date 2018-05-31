@@ -24,9 +24,6 @@ public class GameManager : MonoBehaviour {
     private bool enemiesMoving;
     private bool doingSetup;
 
-    public bool characterChosenRed;
-    public bool characterChosenGreen; 
-
 	// Use this for initialization
 	void Awake () {
         if(instance == null)
@@ -38,17 +35,16 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        //characterChosenRed = CharacterRed.instance.isClickedRed;
-        //aracterChosenGreen = CharacterGreen.instance.isClickedGreen; 
-
         DontDestroyOnLoad(gameObject);
-
-
-        
 
 		enemies = new List<Actor>();
         boardScript = GetComponent<NewBoardManager>();
-        //  InitGame();
+        if (!CharacterSelection.characterSelected)
+        {
+            level++;
+            InitGame();
+        }
+        
 	}
 
     void InitGame()
@@ -115,6 +111,9 @@ public class GameManager : MonoBehaviour {
 
         for (int i = 0; i < enemies.Count; i++)
         {
+            if (!enemies[i].getObject().active)
+                continue;
+
             enemies[i].MoveEnemy();
 			yield return new WaitForSeconds(enemies[i].GetMoveTime());
         }
