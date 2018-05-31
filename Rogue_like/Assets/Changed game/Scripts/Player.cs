@@ -202,10 +202,13 @@ public class Player : MovingObject {
         if (CharacterSelection.isClickedRed == true)
             animator.SetTrigger("Zombie1Attack");
         else
-            animator.SetTrigger("playerHit"); 
+            animator.SetTrigger("playerHit");
 
-        food -= loss;
-        foodText.text = "- " + loss + "Food: " + food;
+        int armorBonus = GetComponent<Inventory>().UseItem(Assets.Changed_game.Scripts.Inventory.PickupType.Armor) + 1;
+
+        food -= loss / armorBonus;
+        
+        foodText.text = "- " + (loss / armorBonus)+ " Food: " + food;
         CheckIfGameOver();
     }
 

@@ -437,7 +437,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Steve has small stomach
+  m_Text: Intern Survivor
 --- !u!222 &1327586072
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -730,7 +730,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Jared is stronger
+  m_Text: Strong Veteran Survivor
 --- !u!222 &1527865907
 CanvasRenderer:
   m_ObjectHideFlags: 0
