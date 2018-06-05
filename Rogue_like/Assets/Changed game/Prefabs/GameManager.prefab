@@ -87,6 +87,7 @@ MonoBehaviour:
   - {fileID: 1720329895996382, guid: 13b22dced7d8511469ea20c4261f1ded, type: 2}
   - {fileID: 1710001968191990, guid: 5d8dcf6f471d15d48b0fff273a2fdd39, type: 2}
   - {fileID: 1057656251567198, guid: 4513aa865074ab740afea02e2696d50e, type: 2}
+  - {fileID: 1982755452599628, guid: 66b5bac66ebbacb4fa13cc946f8713af, type: 2}
   outerWallTiles:
   - {fileID: 1482738704131128, guid: 8172fd0c690757d4ea50939db36a3259, type: 2}
   - {fileID: 1514860100016934, guid: b8fa5535a31bc3041aa267fd417b1a08, type: 2}
@@ -100,6 +101,8 @@ MonoBehaviour:
   - {fileID: 1142976355647292, guid: beb3016cd3d20b74b8d7a88d64a3a16d, type: 2}
   shopKeeper: {fileID: 114739993818924262, guid: 887caf33c68632a45bd7c941e186ec51,
     type: 2}
+  maxCollectible: 6
+  minCollectible: 3
 --- !u!114 &114567952349718650
 MonoBehaviour:
   m_ObjectHideFlags: 1

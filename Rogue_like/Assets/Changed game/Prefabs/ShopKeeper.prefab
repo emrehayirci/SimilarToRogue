@@ -71,9 +71,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7720c1a7c599cca46b31c0fd1a7173f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saleItems: []
-  maxCost: 0
-  minCost: 0
+  randomItems: []
+  maxCost: 10
+  minCost: 3
 --- !u!212 &212255838825243026
 SpriteRenderer:
   m_ObjectHideFlags: 1
