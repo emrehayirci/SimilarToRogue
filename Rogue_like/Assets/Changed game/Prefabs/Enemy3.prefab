@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114813005798232894}
   m_Layer: 8
   m_Name: Enemy3
-  m_TagString: BossMonster
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,16 +118,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a580a97bc9ad443a2c0791a3ff31c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raiderMoveTime: 0.1
+  moveTime: 0.1
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  greenSpeed: 2
   playerDamage: 10
   enemyAttack1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
   enemyAttack2: {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}
   stepsPerTurn: 4
-  health: 2
 --- !u!212 &212250049580586838
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -164,11 +162,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-<<<<<<< HEAD
-  m_Color: {r: 0.07169636, g: 0.3773585, b: 0.069419734, a: 1}
-=======
-  m_Color: {r: 0.12459949, g: 0.754717, b: 0.21601458, a: 1}
->>>>>>> 2e27194f76104ffd2750dc29f75a8a37bde2848d
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

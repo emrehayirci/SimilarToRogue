@@ -37,8 +37,7 @@ namespace Assets.Changed_game.Scripts.Level
         public TileType[,] BoardTiles;
 		public ShopKeeper shopKeeper;
 
-        public int maxCollectible = 6;
-        public int minCollectible = 3;
+
 
         //PickUp Items Container for ground items
         public List<PickupItem> pickupItems = new List<PickupItem>();
@@ -96,7 +95,7 @@ namespace Assets.Changed_game.Scripts.Level
             return randomPosition;
         }
 
-        int LayoutObectAtRandom(GameObject[] tileArray, int minimum, int maximum, TileType type)
+        void LayoutObectAtRandom(GameObject[] tileArray, int minimum, int maximum, TileType type)
         {
             int objectCount = Random.Range(minimum, maximum + 1);
 
@@ -107,27 +106,24 @@ namespace Assets.Changed_game.Scripts.Level
                 BoardTiles[(int)randomPosition.x, (int)randomPosition.y] = type;
                 Instantiate(tileChoice, randomPosition, Quaternion.identity);
             }
-
-            return objectCount;
         }
 
         public void SetupScene(int level)
         {
-            BoardSetup();
-            InitializeList();
-            int random = (int)Random.Range(0,10);
-            if (random == 5) {
-                Instantiate (shopKeeper, new Vector3(columns/2,rows/2,0f),Quaternion.identity);
-                AnalyticsManager.instance.isShop = true;
-            }
-            else {
-                AnalyticsManager.instance.wallCount = LayoutObectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
-                AnalyticsManager.instance.foodCount = LayoutObectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
-                int enemyCount = (int)Mathf.Log (level, 2f);
-                AnalyticsManager.instance.enemyCount = LayoutObectAtRandom(enemyTiles, enemyCount, enemyCount,TileType.Enemy);
-                AnalyticsManager.instance.pickUpCount = LayoutObectAtRandom(randomCollectable, minCollectible, maxCollectible, TileType.Empty);
-            }
-            Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f),Quaternion.identity);
+          BoardSetup();
+          InitializeList();
+          int random = (int)Random.Range(0,10);
+          if (random == 5) {
+            Instantiate (shopKeeper, new Vector3(columns/2,rows/2,0f),Quaternion.identity);
+            LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+          } else {
+            LayoutObectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum, TileType.Wall);
+            LayoutObectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum, TileType.Food);
+            int enemyCount = (int)Mathf.Log (level, 2f);
+            LayoutObectAtRandom (enemyTiles, enemyCount, enemyCount,TileType.Enemy);
+            LayoutObectAtRandom(randomCollectable, 5, 6, TileType.Empty);
+          }
+          Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f),Quaternion.identity);
         }
 
 

@@ -80,6 +80,11 @@ public abstract class MovingObject : MonoBehaviour {
         RaycastHit2D hit;
         bool canMove = Move(xDir, yDir, out hit);
 
+        if (CharacterGreen.instance.isClickedGreen == true && CharacterRed.instance.isClickedRed == false)
+        {
+            Move(xDir * 2, yDir * 2, out hit); 
+        }
+
         if (hit.transform == null)
             return MOVE_ATTEMPT_NO_HIT;
 

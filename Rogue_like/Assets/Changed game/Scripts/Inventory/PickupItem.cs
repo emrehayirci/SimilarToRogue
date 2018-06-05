@@ -8,7 +8,7 @@ namespace Assets.Changed_game.Scripts.Inventory
 {
     public class PickupItem
     {
-        public static int lastItem = 0;
+        public static int lastItem;
 
         public int id;
         public int effect;

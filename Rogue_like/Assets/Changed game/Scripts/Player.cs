@@ -48,7 +48,7 @@ public class Player : MovingObject {
         foodText.text = "Food: " + food;
 
         //if the character chosen was red, it should be stronger
-        if (CharacterSelection.isClickedRed == true)
+        if (CharacterRed.instance.isClickedRed == true)
         {
             wallDamage = 3;
             //display teh red character controller; 
@@ -107,7 +107,7 @@ public class Player : MovingObject {
             vertical = 0;
         }
 
-        if (mySpriteRenderer != null || CharacterSelection.isClickedRed == false)
+        if (mySpriteRenderer != null || CharacterRed.instance.isClickedRed == false)
         {
             if (Input.GetKeyDown((KeyCode.LeftArrow)))
             {
@@ -181,9 +181,9 @@ public class Player : MovingObject {
     {
         Wall hitWall = component as Wall;
         hitWall.DamageWall(wallDamage);
-        if (CharacterSelection.isClickedRed == true)
+        if (CharacterRed.instance.isClickedRed == true)
             animator.SetTrigger("Zombie1Attack");
-        else
+        else if (CharacterGreen.instance.isClickedGreen == true)
             animator.SetTrigger("playerChop");
         //animator.SetTrigger("playerChop");
     }
@@ -199,16 +199,13 @@ public class Player : MovingObject {
 
     public void LoseFood(int loss)
     {
-        if (CharacterSelection.isClickedRed == true)
+        if (CharacterRed.instance.isClickedRed == true)
             animator.SetTrigger("Zombie1Attack");
-        else
-            animator.SetTrigger("playerHit");
+        else if (CharacterGreen.instance.isClickedGreen == true)
+            animator.SetTrigger("playerHit"); 
 
-        int armorBonus = GetComponent<Inventory>().UseItem(Assets.Changed_game.Scripts.Inventory.PickupType.Armor) + 1;
-
-        food -= loss / armorBonus;
-        
-        foodText.text = "- " + (loss / armorBonus)+ " Food: " + food;
+        food -= loss;
+        foodText.text = "- " + loss + "Food: " + food;
         CheckIfGameOver();
     }
 
@@ -232,9 +229,9 @@ public class Player : MovingObject {
             if(distance <= 1.5)
                 target.GetComponent<Actor>().LoseHealth(1 + GetComponent<Inventory>().UseItem(Assets.Changed_game.Scripts.Inventory.PickupType.Weapon));
 
-            if (CharacterSelection.isClickedRed == true)
+            if (CharacterRed.instance.isClickedRed == true)
                 animator.SetTrigger("Zombie1Attack");
-            else
+            else if (CharacterGreen.instance.isClickedGreen == true)
                 animator.SetTrigger("playerChop");
         }
 
@@ -251,9 +248,9 @@ public class Player : MovingObject {
         {
             target.GetComponent<Actor>().LoseHealth(1 + GetComponent<Inventory>().UseItem(Assets.Changed_game.Scripts.Inventory.PickupType.Spell));
 
-            if (CharacterSelection.isClickedRed == true)
+            if (CharacterRed.instance.isClickedRed == true)
                 animator.SetTrigger("Zombie1Attack");
-            else
+            else if (CharacterGreen.instance.isClickedGreen == true)
                 animator.SetTrigger("playerChop");
         }
 
