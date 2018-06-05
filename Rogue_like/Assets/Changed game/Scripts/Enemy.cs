@@ -42,7 +42,7 @@ public class Enemy : MovingObject, Actor {
 						if(moveStack.Count > 1)
 						{
 							moveStack.Pop();
-							//If blocked: attack wall/player and stand next to them
+                            //maybe let the zombie move every pop?
 						}
 					}
 				}
