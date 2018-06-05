@@ -47,5 +47,6 @@ public class ShopKeeper : MonoBehaviour {
     {
         //Sellin Item
         Player.instance.LoseFood(priceList[item.id]);
+        AnalyticsManager.instance.pickupsCostSpent += priceList[item.id];
     }
 }
