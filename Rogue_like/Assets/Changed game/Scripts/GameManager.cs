@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
 
     public Text levelText;
     public GameObject levelImage;
-    private int level = 0;
+    public int level = 0;
     private List<PickupItem> itemsSaved = null;
 	public List<Actor> enemies;
     private bool enemiesMoving;
