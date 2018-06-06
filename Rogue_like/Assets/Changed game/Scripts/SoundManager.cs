@@ -42,11 +42,8 @@ public class SoundManager : MonoBehaviour {
 			if(!musicSource.isPlaying)
 				PlaySong (music, roomName);
 		} else if (GameObject.FindGameObjectWithTag ("BossMonster")) {
-<<<<<<< HEAD
 			if(musicSource.clip != music[music.Length - 1])
-=======
 			if(musicSource.clip != music[music.Length -1])
->>>>>>> 2e27194f76104ffd2750dc29f75a8a37bde2848d
 				musicSource.Stop ();
 			roomName = "Boss";
 			if(!musicSource.isPlaying)

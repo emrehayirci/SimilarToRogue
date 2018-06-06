@@ -61,15 +61,16 @@ public class Player : MovingObject {
                 mySpriteRenderer.flipX = true;
             }
         }
-
+		AnalyticsManager.instance.getVariablesAtStart ();
+		AnalyticsManager.instance.SendAnalytics ();
         base.Start();
 	}
 
-    //private void OnDisable()
-    //{
-    //    Debug.Log("OnDisable player "+food);
-    //    GameManager.instance.playerFoodPoints = food;
-    //}
+    private void OnDisable()
+    {
+        Debug.Log("OnDisable player "+food);
+        GameManager.instance.playerFoodPoints = food;
+    }
 
     // Update is called once per frame
     void Update()
@@ -191,6 +192,8 @@ public class Player : MovingObject {
     private void Restart()
     {
         Debug.Log("Restart");
+		AnalyticsManager.instance.getVariablesAtEnd ();
+		AnalyticsManager.instance.SendAnalytics ();
         //turn on level image and increase the level in here before loading the next level
         GameManager.instance.ShowLevelImageBeforeLoad(GameManager.instance.levelText, GameManager.instance.levelImage);
         SceneManager.LoadScene("Scene1");
@@ -216,6 +219,8 @@ public class Player : MovingObject {
     {
         if(food <= 0)
         {
+			AnalyticsManager.instance.getVariablesAtEnd ();
+			AnalyticsManager.instance.SendAnalytics ();
             SoundManager.instance.PlaySingle(gameOverSound);
             SoundManager.instance.musicSource.Stop();
             GameManager.instance.GameOver();

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public class AnalyticsManager : MonoBehaviour
 {
@@ -17,9 +19,18 @@ public class AnalyticsManager : MonoBehaviour
     public int pickupsCostSpent = 0;
 
 
-    void Start()
+    void Awake()
     {
-        instance = this;
+		if(instance == null)
+		{
+			instance = this;
+		}
+		else if(instance != this)
+		{
+			Destroy(gameObject);
+		}
+
+		DontDestroyOnLoad(gameObject);
     }
 
     public void getVariablesAtStart()
@@ -36,6 +47,18 @@ public class AnalyticsManager : MonoBehaviour
 
     public void SendAnalytics()
     {
-
+		Analytics.CustomEvent ("played level", new Dictionary<string, object>
+		{ 
+				{"Days survived",day},
+				{"Walls in level",wallCount},
+				{"enemies in level",enemyCount},
+				{"amount of food in level",foodCount},
+				{"Is the character red?",isCharacterRed},
+				{"Is the room a shop?",isShop},
+				{"Starting amount of food of level",startFood},
+				{"Ending amount of food of level",endFood},
+				{"Amount of pickups in level",pickUpCount},
+				{"Amount of food spent on pickup in shop",pickupsCostSpent}
+		});
     }
 }
