@@ -6,7 +6,6 @@ using UnityEngine.Analytics;
 public class AnalyticsManager : MonoBehaviour
 {
     public static AnalyticsManager instance;
-
     public int day = 0;
     public int wallCount = 0;
     public int enemyCount = 0;
@@ -45,10 +44,10 @@ public class AnalyticsManager : MonoBehaviour
         endFood = Player.instance.food;
     }
 
-    public void SendAnalytics()
+    public bool SendAnalytics()
     {
-		Analytics.CustomEvent ("played level", new Dictionary<string, object>
-		{ 
+		AnalyticsResult result = AnalyticsEvent.Custom("played level", new Dictionary<string, object>
+			{ 
 				{"Days survived",day},
 				{"Walls in level",wallCount},
 				{"enemies in level",enemyCount},
@@ -59,6 +58,11 @@ public class AnalyticsManager : MonoBehaviour
 				{"Ending amount of food of level",endFood},
 				{"Amount of pickups in level",pickUpCount},
 				{"Amount of food spent on pickup in shop",pickupsCostSpent}
-		});
+			});
+		if(result == AnalyticsResult.Ok){
+			return true;
+		} else {
+			return false;
+		}
     }
 }
