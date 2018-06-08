@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "74592104127",
+    "firebase_url": "https://nothingtohide-724c5.firebaseio.com",
+    "project_id": "nothingtohide-724c5",
+    "storage_bucket": "nothingtohide-724c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74592104127:android:ec8a26bc757bfe2a",
+        "android_client_info": {
+          "package_name": "com.emre.hayici"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74592104127-cae3nu2c478fckv6bbbatirla42lf7ru.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "74592104127-cae3nu2c478fckv6bbbatirla42lf7ru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH5b6XpT4s17anqdb2UJoIb2Pmyjhx1ck"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

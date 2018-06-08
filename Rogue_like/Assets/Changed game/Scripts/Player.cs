@@ -62,7 +62,7 @@ public class Player : MovingObject {
             }
         }
 		AnalyticsManager.instance.getVariablesAtStart ();
-		AnalyticsManager.instance.SendAnalytics ();
+		//AnalyticsManager.instance.SendAnalytics ();
         base.Start();
 	}
 

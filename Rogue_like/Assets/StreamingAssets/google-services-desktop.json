@@ -1,0 +1,37 @@
+{
+  "client": [
+    {
+      "services": {
+        "appinvite_service": {
+          "status": 0
+        }, 
+        "analytics_service": {
+          "status": 0
+        }
+      }, 
+      "oauth_client": [
+        {
+          "client_id": "74592104127-ja6t0g904f5gufctec6frf55nhtepaib.apps.googleusercontent.com"
+        }
+      ], 
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOzFUwEuGyt1e9nlNxgNUCWCgSP7uCFQU"
+        }
+      ], 
+      "client_info": {
+        "mobilesdk_app_id": "1:74592104127:ios:318f68e6b1543643", 
+        "android_client_info": {
+          "package_name": "com.emre.hayirci"
+        }
+      }
+    }
+  ], 
+  "configuration_version": "1", 
+  "project_info": {
+    "storage_bucket": "nothingtohide-724c5.appspot.com", 
+    "project_id": "nothingtohide-724c5", 
+    "firebase_url": "https://nothingtohide-724c5.firebaseio.com", 
+    "project_number": "74592104127"
+  }
+}
